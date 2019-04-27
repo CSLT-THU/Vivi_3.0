@@ -19,6 +19,7 @@ It supports 3 different types of input:
 * Hidden head (Cangtou).
 * Keywords.
 * Test set file.
+
 The priority is as the list, if you want to use keywords as a input, for example, leave the value of 'cangtou' blank.
 ```
 cangtou = 

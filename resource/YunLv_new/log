@@ -1,0 +1,18 @@
+4/8
+process.py:
+可能需要手动处理oov(仅有43个)
+
+4/13
+check_vocab.py:
+查看hzpy.txt, yun_utf8.txt(老文件), yun_p.txt,yun_z.txt(新文件，没用)
+process.py:
+1.用hzpy.txt的拼音和yun_utf8.txt的平仄制作字典，包含4771字（不含标识符6个），字典属性包括平仄，声母，韵母。
+字典文件为dicts_word.json, 为每个字的字典的列表。
+2.分平仄，按照韵母归类，得到列表。dicts_p.json, dicts_z.json
+3.多音字按不同字处理
+4.区分ye和e，区分zi ci si，zhi chi shi ri和普通i 分别标记韵母为e和e1，i和i1 i2
+
+4/14
+1.问题：多音字，平仄只有一个，拼音多个。导致读音可能不准确（平仄不对）。原因是hzpy文件和utf8文件多音字的不同读音不能对应
+2.u和v，ve和ue没有区分（原文件的问题）
+3.最终文件word_p.txt和word_z.txt

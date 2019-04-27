@@ -1,6 +1,6 @@
 # Vivi_3.0
 
-## Quick Start:
+## Quick Start
 
 ### Train a model
 ```

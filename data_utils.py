@@ -26,18 +26,20 @@ def read_train_data(file):
             source, target = line.split('==')
         except:
             print('format mismatch in dataset: ', line.split('=='))
-
+            continue
+            
         source_words = ('START1 ' + source + ' END1').split(' ')  # 用了START1和END1
-        target = target[:-2] if target.find('\r\n') > -1 else target[:-1]
+        target = target.replace('\n', '')
         target_words = target.replace('\t', ' / ').split(' ') + ['/'] + target.split('\t')[0].split(' ')  # 用5个句子训练
 
-        source_ids = [word2id.get(word, vocab_size - 1) for word in source_words]  # default = 4776 '-' ?
+        source_ids = [word2id.get(word, vocab_size - 1) for word in source_words]  # default = 4776 '-' PAD?
         target_ids = [word2id.get(word, vocab_size - 1) for word in target_words]
-        target_ids.insert(0, SOS_token)  # jiyuan没有
-        target_ids.append(EOS_token)
+        target_ids.append(EOS_token) # 没有SOS_token
 
-        pairs_li.append([source_ids, target_ids])
+        if len(target_ids) == 40: # 只考虑七言
+            pairs_li.append([source_ids, target_ids])
 
+    print('training set size:', len(pairs_li))
     print('read traning set done')
     return pairs_li  # tmp
 

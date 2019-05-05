@@ -2,13 +2,11 @@
 import torch
 import torch.nn as nn
 import numpy as np
-import transformer.Constants as Constants
-from transformer.Layers import EncoderLayer, DecoderLayer
-from word_emb import WordEmb
+import models.Transformer.Constants as Constants
+from models.Transformer.Layers import EncoderLayer, DecoderLayer
 
-WordEmb = WordEmb()
-word2id, id2word, emb, word2count, vocab_size, SOS_token, EOS_token, PAD_token, UNK_token = WordEmb.get()
-embed_size = 200
+from word_emb import emb_size, word2id, id2word, emb, word2count, vocab_size, SOS_token, EOS_token, PAD_token, UNK_token
+
 
 def get_non_pad_mask(seq):
     assert seq.dim() == 2
@@ -68,7 +66,7 @@ class Encoder(nn.Module):
         n_position = len_max_seq + 1
 
         # embedding
-        self.src_word_emb = nn.Embedding(vocab_size, embed_size)
+        self.src_word_emb = nn.Embedding(vocab_size, emb_size)
         pretrained_weight = np.array(emb)  # 已有词向量的numpy
         self.src_word_emb.weight.data.copy_(torch.from_numpy(pretrained_weight))
         self.src_word_emb.weight.requires_grad = False
@@ -116,10 +114,11 @@ class Decoder(nn.Module):
             d_model, d_inner, dropout=0.1):
 
         super().__init__()
-        n_position = len_max_seq + 1
+        n_position = len_max_seq
+        # n_position = len_max_seq + 1
         
         # embedding
-        self.tgt_word_emb = nn.Embedding(vocab_size, embed_size)
+        self.tgt_word_emb = nn.Embedding(vocab_size, emb_size)
         pretrained_weight = np.array(emb)  # 已有词向量的numpy
         self.tgt_word_emb.weight.data.copy_(torch.from_numpy(pretrained_weight))
         self.tgt_word_emb.weight.requires_grad = False
@@ -165,59 +164,3 @@ class Decoder(nn.Module):
         if return_attns:
             return dec_output, dec_slf_attn_list, dec_enc_attn_list
         return dec_output,
-
-class Transformer(nn.Module):
-    ''' A sequence to sequence model with attention mechanism. '''
-
-    def __init__(
-            self,
-            n_src_vocab, n_tgt_vocab, len_max_seq,
-            d_word_vec=512, d_model=512, d_inner=2048,
-            n_layers=6, n_head=8, d_k=64, d_v=64, dropout=0.1,
-            tgt_emb_prj_weight_sharing=True,
-            emb_src_tgt_weight_sharing=True):
-        
-        super().__init__()
-
-        self.encoder = Encoder(
-            n_src_vocab=n_src_vocab, len_max_seq=len_max_seq,
-            d_word_vec=d_word_vec, d_model=d_model, d_inner=d_inner,
-            n_layers=n_layers, n_head=n_head, d_k=d_k, d_v=d_v,
-            dropout=dropout)
-
-        self.decoder = Decoder(
-            n_tgt_vocab=n_tgt_vocab, len_max_seq=len_max_seq,
-            d_word_vec=d_word_vec, d_model=d_model, d_inner=d_inner,
-            n_layers=n_layers, n_head=n_head, d_k=d_k, d_v=d_v,
-            dropout=dropout)
-
-        self.tgt_word_prj = nn.Linear(d_model, n_tgt_vocab, bias=False)
-        nn.init.xavier_normal_(self.tgt_word_prj.weight)
-
-        assert d_model == d_word_vec, \
-        'To facilitate the residual connections, \
-         the dimensions of all module outputs shall be the same.'
-
-        if tgt_emb_prj_weight_sharing:
-            # Share the weight matrix between target word embedding & the final logit dense layer
-            self.tgt_word_prj.weight = self.decoder.tgt_word_emb.weight
-            self.x_logit_scale = (d_model ** -0.5)
-        else:
-            self.x_logit_scale = 1.
-
-        if emb_src_tgt_weight_sharing:
-            # Share the weight matrix between source & target word embeddings
-            assert n_src_vocab == n_tgt_vocab, \
-            "To share word embedding table, the vocabulary size of src/tgt shall be the same."
-            self.encoder.src_word_emb.weight = self.decoder.tgt_word_emb.weight
-
-    def forward(self, src_seq, src_pos, tgt_seq, tgt_pos):
-
-        tgt_seq, tgt_pos = tgt_seq[:, :-1], tgt_pos[:, :-1] # 最后一个END？
-
-        enc_output, *_ = self.encoder(src_seq, src_pos)
-        dec_output, *_ = self.decoder(tgt_seq, tgt_pos, src_seq, enc_output)
-        seq_logit = self.tgt_word_prj(dec_output) * self.x_logit_scale
-
-        # return seq_logit # batch size * length * 4777 
-        return seq_logit.view(-1, seq_logit.size(2))

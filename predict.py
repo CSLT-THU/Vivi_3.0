@@ -16,18 +16,19 @@ print('device:', device)
 # predict
 # ==========
 
-def predict(test_data, lines, model, model_param, ckpt_path, poem_type, cangtou, assign_yun):
+def predict(test_data, lines, model, predict_param, ckpt_path, poem_type, cangtou, assign_yun):
     model.eval()
     context = ''
     for i, data in enumerate(test_data):
         # 每一步 loader 释放一小批数据用来学习，step=总数据量/batch_size，enumerate把每次提取编写索引。
         # batch_x: B*T tensor
 
-        output_words = model.predict(data, cangtou)
+        output_words = model.predict(data, cangtou, predict_param)
 
-        output_words.insert(7, '/')
+        output_words.insert(7, '/') # 改
         output_words.insert(15, '/')
         output_words.insert(23, '/')
+        
         output_sentence = ' '.join(output_words)
         print((i+1), lines[i], ' ==== ', output_sentence)
         context = context + lines[i] + ' ==== ' + output_sentence + '\n'
@@ -43,9 +44,9 @@ def predict(test_data, lines, model, model_param, ckpt_path, poem_type, cangtou,
 def main():
     # ========= Get Parameter =========#
     conf = configparser.ConfigParser()
-    conf.read('config.ini', encoding="utf-8-sig")
+    conf.read('config/config.ini', encoding="utf-8-sig")
 
-    model_name = conf.get('train', 'model')
+    model_name = conf.get('predict', 'model')
     ckpt_path = conf.get('predict', 'ckpt_path')
     test_set = conf.get('predict', 'test_set')
     use_planning = conf.get('predict', 'use_planning')
@@ -53,12 +54,12 @@ def main():
     cangtou = conf.get('predict', 'cangtou')
     keywords = conf.get('predict', 'keywords')
     assign_yun = conf.get('predict', 'assign_yun')
-    
-    model_param_li = conf.items(model_name)
-    model_param = {}
-    for item in model_param_li:
-        model_param[item[0]] = item[1]
 
+    conf.read('config/config_'+model_name+'.ini')
+    predict_param_li = conf.items('predict_param')
+    predict_param = {}
+    for item in predict_param_li:
+        predict_param[item[0]] = item[1]
 
     # ========= Preparing Data =========#
 
@@ -73,8 +74,8 @@ def main():
     # 实例化
     data_path = 'models.' + model_name + '.PoetryData'
     PoetryData = importlib.import_module(data_path)
-    test_Dataset = getattr(PoetryData, 'PoetryData')(test_set, src_max_len=int(model_param['input_max_len']), 
-                                                     tgt_max_len=int(model_param['target_max_len']), test=True)
+    test_Dataset = getattr(PoetryData, 'PoetryData')(test_set, src_max_len=int(predict_param['input_max_len']), 
+                                                     tgt_max_len=int(predict_param['target_max_len']), test=True)
     
     # 变成小批
     test_data = Data.DataLoader(
@@ -85,17 +86,17 @@ def main():
     )
 
     # ========= Preparing Model =========#
-
-    model_path = 'models.' + model_name + '.' + model_name
-    Model = importlib.import_module(model_path)  # 导入模块
-    model = getattr(Model, model_name)(model_param)  # 反射并实例化
-    print('model:', model)
-
-    # load model
     if os.path.exists(ckpt_path):
         checkpoint = torch.load(ckpt_path, map_location=lambda storage, loc: storage)
+        model_param = checkpoint['model_param']
+        
+        model_path = 'models.' + model_name + '.' + model_name
+        Model = importlib.import_module(model_path)  # 导入模块
+        model = getattr(Model, model_name)(model_param)  # 反射并实例化
+        print('model:', model)
+        
         model.load_state_dict(checkpoint['model'])
-        predict(test_data, lines, model, model_param, ckpt_path, poem_type, cangtou, assign_yun)
+        predict(test_data, lines, model, predict_param, ckpt_path, poem_type, cangtou, assign_yun)
     else: 
         print('ckpt_path does not exist.')
 

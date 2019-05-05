@@ -1,5 +1,16 @@
 '''A wrapper class for optimizer '''
 import numpy as np
+from torch import optim
+
+def get_optimizer(model, model_param):
+    d_model = int(model_param['d_model'])
+    n_warmup_steps = int(model_param['n_warmup_steps'])
+    optimizer = ScheduledOptim(
+        optim.Adam(
+            filter(lambda x: x.requires_grad, model.parameters()), # model是对象
+            betas=(0.9, 0.98), eps=1e-09),
+        d_model, n_warmup_steps)
+    return optimizer
 
 class ScheduledOptim():
     '''A simple wrapper class for learning rate scheduling'''
@@ -10,7 +21,8 @@ class ScheduledOptim():
         self.n_current_steps = 0
         self.init_lr = np.power(d_model, -0.5)
 
-    def step_and_update_lr(self):
+    def step(self):
+    # def step_and_update_lr(self):
         "Step with the inner optimizer"
         self._update_learning_rate()
         self._optimizer.step()

@@ -17,7 +17,6 @@ import configparser
 import importlib
 
 from data_utils import read_train_data, read_test_data, split_dataset, sort_batch_data
-from word_emb import emb_size, word2id, id2word, emb, word2count, vocab_size, SOS_token, EOS_token, PAD_token, UNK_token
 from loss.loss_logs import save_loss, write_log_head, write_log_loss
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
@@ -113,7 +112,7 @@ def train(train_data, val_data, model, optimizer, batch_size, epochs, last_epoch
 def main():
     # ========= Get Parameter =========#
     conf = configparser.ConfigParser()
-    conf.read('config.ini')
+    conf.read('config/config.ini')
     
     ckpt_path = conf.get('train','ckpt_path')
     val_rate =  float(conf.get('train','val_rate'))
@@ -123,18 +122,20 @@ def main():
     teacher_forcing_ratio = float(conf.get('train','teacher_forcing_ratio'))
     model_name = conf.get('train','model')
     
-    model_param_li =  conf.items(model_name)
-    model_param = {'model_name':model_name}
-    for item in model_param_li:
-        model_param[item[0]] = item[1]
-    
-    # load model params 待修改 此处和下面略有重复
+    # load model params
+    checkpoint = None
     if os.path.exists(ckpt_path):
         checkpoint = torch.load(ckpt_path)
         model_param = checkpoint['model_param']
         last_epoch = checkpoint['epoch']
     else:
+        conf.read('config/config_'+model_name+'.ini')
+        model_param_li = conf.items('model_param')
+        model_param = {'model_name': model_name}
+        for item in model_param_li:
+            model_param[item[0]] = item[1]
         last_epoch = 0
+    print('checkpoint:', checkpoint)
 
     # ========= Preparing Data =========#
 
@@ -179,7 +180,7 @@ def main():
 
     # load model from ckpt
     if os.path.exists(ckpt_path):
-        checkpoint = torch.load(ckpt_path)
+        # checkpoint = torch.load(ckpt_path, map_location=lambda storage, loc: storage) # 重复load
         model.load_state_dict(checkpoint['model'])
 
     write_log_head(dataset, None, batch_size, ckpt_path)  # 待修改

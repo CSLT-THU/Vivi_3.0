@@ -64,7 +64,7 @@ class AttnDecoderRNN(nn.Module):
         self.gru = nn.GRU(self.hidden_size, self.hidden_size)
         self.out = nn.Linear(self.hidden_size, self.output_size)
 
-    def forward(self, input, hidden, encoder_outputs):
+    def forward(self, input, hidden, encoder_outputs): 
         embedded = self.embedding(input)
         embedded = self.dropout(embedded)
 
@@ -80,6 +80,7 @@ class AttnDecoderRNN(nn.Module):
         output, hidden = self.gru(output, hidden)
 
         output = F.log_softmax(self.out(output[0]), dim=1)
+        
         return output, hidden, attn_weights
 
     def initHidden(self):

@@ -1,0 +1,336 @@
+
+04-28 22:06 
+dataset = resource/dataset/train_58k.txt 
+learning rate = None 
+batch size = 80 
+checkpoint = None 
+
+04-28 22:09 
+dataset = resource/dataset/train_58k.txt 
+learning rate = None 
+batch size = 80 
+checkpoint = None 
+
+04-29 11:19 
+dataset = resource/dataset/train_58k.txt 
+learning rate = None 
+batch size = 80 
+checkpoint = None 
+
+04-29 11:22 
+dataset = resource/dataset/train_58k.txt 
+learning rate = None 
+batch size = 80 
+checkpoint = None 
+
+04-29 11:24 
+dataset = resource/dataset/train_58k.txt 
+learning rate = None 
+batch size = 80 
+checkpoint = None 
+
+04-29 14:57 
+dataset = resource/dataset/train_58k.txt 
+learning rate = None 
+batch size = 80 
+checkpoint = None 
+
+04-29 15:11 
+dataset = resource/dataset/train_58k.txt 
+learning rate = None 
+batch size = 80 
+checkpoint = None 
+
+04-29 15:14 
+dataset = resource/dataset/train_58k.txt 
+learning rate = None 
+batch size = 80 
+checkpoint = None 
+
+04-29 16:37 
+dataset = resource/dataset/train_58k.txt 
+learning rate = None 
+batch size = 80 
+checkpoint = None 
+
+04-29 17:53 
+dataset = resource/dataset/train_58k.txt 
+learning rate = None 
+batch size = 80 
+checkpoint = None 
+
+04-29 19:03 
+dataset = resource/dataset/train_58k.txt 
+learning rate = None 
+batch size = 80 
+checkpoint = None 
+
+04-30 12:43 
+dataset = resource/dataset/train_58k.txt 
+learning rate = None 
+batch size = 80 
+checkpoint = None 
+
+04-30 12:45 
+dataset = resource/dataset/train_58k.txt 
+learning rate = None 
+batch size = 80 
+checkpoint = None 
+
+04-30 14:49 
+dataset = resource/dataset/train_480.txt 
+learning rate = None 
+batch size = 80 
+checkpoint = None 
+epoch: 1 | train loss: 337.9 | val loss: 0
+epoch: 2 | train loss: 337.4 | val loss: 0
+
+04-30 15:06 
+dataset = resource/dataset/train_480.txt 
+learning rate = None 
+batch size = 80 
+checkpoint = None 
+
+04-30 15:10 
+dataset = resource/dataset/train_480.txt 
+learning rate = None 
+batch size = 80 
+checkpoint = None 
+
+05-05 12:16 
+dataset = resource/dataset/train_480.txt 
+learning rate = None 
+batch size = 80 
+checkpoint = None 
+
+05-05 12:17 
+dataset = resource/dataset/train_480.txt 
+learning rate = None 
+batch size = 80 
+checkpoint = None 
+
+05-05 12:18 
+dataset = resource/dataset/train_480.txt 
+learning rate = None 
+batch size = 80 
+checkpoint = None 
+
+05-05 13:23 
+dataset = resource/dataset/train_480.txt 
+learning rate = None 
+batch size = 80 
+checkpoint = None 
+
+05-05 13:26 
+dataset = resource/dataset/train_480.txt 
+learning rate = None 
+batch size = 80 
+checkpoint = None 
+
+05-05 13:27 
+dataset = resource/dataset/train_480.txt 
+learning rate = None 
+batch size = 80 
+checkpoint = None 
+
+05-05 13:30 
+dataset = resource/dataset/train_480.txt 
+learning rate = None 
+batch size = 80 
+checkpoint = None 
+
+05-05 13:31 
+dataset = resource/dataset/train_480.txt 
+learning rate = None 
+batch size = 80 
+checkpoint = None 
+
+05-05 13:32 
+dataset = resource/dataset/train_480.txt 
+learning rate = None 
+batch size = 80 
+checkpoint = None 
+
+05-05 13:35 
+dataset = resource/dataset/train_480.txt 
+learning rate = None 
+batch size = 80 
+checkpoint = None 
+
+05-05 13:35 
+dataset = resource/dataset/train_480.txt 
+learning rate = None 
+batch size = 80 
+checkpoint = None 
+
+05-05 13:35 
+dataset = resource/dataset/train_480.txt 
+learning rate = None 
+batch size = 80 
+checkpoint = None 
+
+05-05 13:36 
+dataset = resource/dataset/train_480.txt 
+learning rate = None 
+batch size = 80 
+checkpoint = None 
+
+05-05 13:37 
+dataset = resource/dataset/train_480.txt 
+learning rate = None 
+batch size = 80 
+checkpoint = None 
+
+05-05 13:37 
+dataset = resource/dataset/train_480.txt 
+learning rate = None 
+batch size = 80 
+checkpoint = None 
+
+05-05 13:40 
+dataset = resource/dataset/train_480.txt 
+learning rate = None 
+batch size = 80 
+checkpoint = None 
+
+05-05 13:41 
+dataset = resource/dataset/train_480.txt 
+learning rate = None 
+batch size = 80 
+checkpoint = None 
+
+05-05 13:42 
+dataset = resource/dataset/train_480.txt 
+learning rate = None 
+batch size = 80 
+checkpoint = None 
+
+05-05 13:50 
+dataset = resource/dataset/train_480.txt 
+learning rate = None 
+batch size = 80 
+checkpoint = None 
+
+05-05 13:53 
+dataset = resource/dataset/train_480.txt 
+learning rate = None 
+batch size = 80 
+checkpoint = None 
+
+05-05 13:54 
+dataset = resource/dataset/train_480.txt 
+learning rate = None 
+batch size = 80 
+checkpoint = None 
+
+05-05 13:56 
+dataset = resource/dataset/train_480.txt 
+learning rate = None 
+batch size = 80 
+checkpoint = None 
+
+05-05 13:58 
+dataset = resource/dataset/train_480.txt 
+learning rate = None 
+batch size = 80 
+checkpoint = None 
+
+05-05 14:00 
+dataset = resource/dataset/train_480.txt 
+learning rate = None 
+batch size = 80 
+checkpoint = None 
+
+05-05 14:01 
+dataset = resource/dataset/train_480.txt 
+learning rate = None 
+batch size = 80 
+checkpoint = None 
+
+05-05 14:02 
+dataset = resource/dataset/train_480.txt 
+learning rate = None 
+batch size = 80 
+checkpoint = None 
+
+05-05 14:05 
+dataset = resource/dataset/train_480.txt 
+learning rate = None 
+batch size = 80 
+checkpoint = None 
+
+05-05 14:06 
+dataset = resource/dataset/train_480.txt 
+learning rate = None 
+batch size = 80 
+checkpoint = None 
+
+05-05 14:08 
+dataset = resource/dataset/train_480.txt 
+learning rate = None 
+batch size = 80 
+checkpoint = None 
+
+05-05 14:09 
+dataset = resource/dataset/train_480.txt 
+learning rate = None 
+batch size = 80 
+checkpoint = None 
+
+05-05 14:10 
+dataset = resource/dataset/train_480.txt 
+learning rate = None 
+batch size = 80 
+checkpoint = None 
+
+05-05 14:11 
+dataset = resource/dataset/train_480.txt 
+learning rate = None 
+batch size = 80 
+checkpoint = None 
+
+05-05 14:12 
+dataset = resource/dataset/train_480.txt 
+learning rate = None 
+batch size = 80 
+checkpoint = None 
+
+05-05 14:12 
+dataset = resource/dataset/train_480.txt 
+learning rate = None 
+batch size = 80 
+checkpoint = None 
+
+05-05 14:14 
+dataset = resource/dataset/train_480.txt 
+learning rate = None 
+batch size = 80 
+checkpoint = None 
+
+05-05 14:15 
+dataset = resource/dataset/train_480.txt 
+learning rate = None 
+batch size = 80 
+checkpoint = None 
+
+05-05 14:15 
+dataset = resource/dataset/train_480.txt 
+learning rate = None 
+batch size = 80 
+checkpoint = None 
+
+05-05 14:20 
+dataset = resource/dataset/train_480.txt 
+learning rate = None 
+batch size = 80 
+checkpoint = None 
+epoch: 1 | train loss: 468.4 | val loss: 0
+
+05-05 14:38 
+dataset = resource/dataset/train_480.txt 
+learning rate = None 
+batch size = 80 
+checkpoint = None 
+epoch: 1 | train loss: 474.6 | val loss: 0
+epoch: 2 | train loss: 929.8 | val loss: 0
+epoch: 3 | train loss: 1306.5 | val loss: 0

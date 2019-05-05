@@ -24,12 +24,13 @@ def predict(test_data, lines, model, predict_param, ckpt_path, poem_type, cangto
         # batch_x: B*T tensor
 
         output_words = model.predict(data, cangtou, predict_param)
-
+        
+        output_words = output_words[0] ###
         output_words.insert(7, '/') # 改
         output_words.insert(15, '/')
         output_words.insert(23, '/')
         
-        output_sentence = ' '.join(output_words)
+        output_sentence = ''.join(output_words)
         print((i+1), lines[i], ' ==== ', output_sentence)
         context = context + lines[i] + ' ==== ' + output_sentence + '\n'
         

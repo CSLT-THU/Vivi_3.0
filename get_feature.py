@@ -69,10 +69,13 @@ def get_feature(decoded_words, sen_num, w_num, batch_size):
         decoded_words_batch = decoded_words[i]
         if sen_num+1 in yun_sen[1:] and w_num+1 == sen_len:
             yun_word = decoded_words_batch[yun_sen[0] * (sen_len+1) - 2]  # 第一个押韵句子的最后一个字
-            target_yun = word_dict[yun_word]['yun']
-            target_yun = [target_yun] * vocab_size
-            target_yun = np.array(target_yun)
-            feature2_batch = np.where(all_yun == target_yun, 1.0, 0.0)
+            if yun_word in word_dict.keys(): # 生成标志词需要特殊处理，待考虑
+                target_yun = word_dict[yun_word]['yun']
+                target_yun = [target_yun] * vocab_size
+                target_yun = np.array(target_yun)
+                feature2_batch = np.where(all_yun == target_yun, 1.0, 0.0)
+            else:
+                feature2_batch = np.zeros(vocab_size)
         else:
             feature2_batch = np.zeros(vocab_size)
         feature2.append(feature2_batch)

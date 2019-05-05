@@ -95,27 +95,35 @@ class Seq2seq_new(nn.Module):
 
             sen_len = 7 # 暂时
             sen_num = 4
-            decoded_words = []
 
+            decoded_words = [[]]
             for i in range(sen_num):
                 for j in range(sen_len):
                     decoder_output, decoder_hidden, decoder_attention = self.decoder(
                         decoder_input, decoder_hidden, encoder_outputs_padded)
+
+                    feature1, feature2 = get_feature(decoded_words, i, j, 1) # 训练也用此函数 需要有batch size的维度
+                    feature1 = torch.tensor(feature1).to(device)
+                    feature2 = torch.tensor(feature2).to(device)
+                    decoder_output = self.linears(decoder_output, feature1, feature2)
+
                     if j == 0 and cangtou and i < len(cangtou):
                         top_word = cangtou[i]
                         top_id = torch.LongTensor([word2id.get(top_word, vocab_size - 1)])
+                        decoder_input = top_id.reshape((1, 1)).detach()
                     else:
-                        top_id, top_word = get_next_word(decoder_output.data, decoded_words)
+                        topv, topi = decoder_output.topk(1)  # value 和 id (1,1)
+                        decoder_input = topi.detach()  # detach from history as input
+                        top_word = id2word[str(topi[0].item())]  # 一个batch
                         if top_word == 'N':
                             print('cannot meet requirements')
                             break
-                    decoded_words.append(top_word)
-                    decoder_input = top_id.reshape((1, 1)).detach()  # detach from history as input
-
+                    decoded_words[0].append(top_word)
+                        
                 tmp_decoder_output, tmp_decoder_hidden, tmp_decoder_attention = self.decoder(
                     decoder_input, decoder_hidden, encoder_outputs_padded)
                 decoder_hidden = tmp_decoder_hidden
-                decoder_input = torch.tensor([[2]], device=device)  # '/'作为输入
+                decoder_input = torch.tensor([[2] for n in range(1)], device=device)  # '/'作为输入
                 
         return decoded_words
         

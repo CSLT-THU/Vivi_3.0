@@ -27,8 +27,10 @@ def read_train_data(file):
         except:
             print('format mismatch in dataset: ', line.split('=='))
             continue
-            
-        source_words = ('START1 ' + source + ' END1').split(' ')  # 用了START1和END1
+
+        if len(source.split(' - ')) == 4: # poem_1031k_theme 
+            source = source + ' - ' + source.split(' - ')[0]  
+        source_words = ('START1 ' + source + ' END1').split(' ') 
         target = target.replace('\n', '')
         target_words = target.replace('\t', ' / ').split(' ') + ['/'] + target.split('\t')[0].split(' ')  # 用5个句子训练
 

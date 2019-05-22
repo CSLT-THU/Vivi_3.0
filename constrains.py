@@ -53,8 +53,11 @@ def get_next_word(decoder_output, decoded_words):
         if candidate_word in forbidden_words:
             continue        
         # low frequency
-        if word2count[candidate_word] < 200 or (candidate_word not in word2count.keys()):
+        if candidate_word not in word2count.keys():
             continue     
+        elif word2count[candidate_word] < 200:
+            continue
+            
         # no repeat
         if candidate_word in decoded_words:
             continue

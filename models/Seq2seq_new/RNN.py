@@ -97,4 +97,6 @@ class Linears(nn.Module):
     
     def forward(self, decoder_output, feature1, feature2):
         output = decoder_output + self.linear1(feature1) + self.linear2(feature2)
+        output = F.log_softmax(output, dim=1)
+        output = output.to(device)
         return output

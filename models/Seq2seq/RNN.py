@@ -36,7 +36,7 @@ class EncoderRNN(nn.Module):
         return output, hidden
 
     def initHidden(self, batch_size):
-        return torch.zeros(1, batch_size, self.hidden_size, device=device)
+        return torch.zeros(1, batch_size, self.hidden_size, device=device) # zeros
 
 
 ######################################################################
@@ -84,5 +84,4 @@ class AttnDecoderRNN(nn.Module):
         return output, hidden, attn_weights
 
     def initHidden(self):
-        return torch.zeros(1, 1, self.hidden_size, device=device)
-
+        return torch.rand(1, 1, self.hidden_size, device=device) # 没用到

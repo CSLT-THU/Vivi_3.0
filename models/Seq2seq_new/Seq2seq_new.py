@@ -55,8 +55,10 @@ class Seq2seq_new(nn.Module):
                     decoder_input, decoder_hidden, encoder_outputs_padded)
                 
                 feature1, feature2 = get_feature(decoded_words, i, j, batch_size)
-                feature1 = torch.tensor(feature1).to(device)
-                feature2 = torch.tensor(feature2).to(device)
+                feature1 = torch.tensor(feature1, device=device)
+                feature2 = torch.tensor(feature2, device=device)
+                # feature1 = torch.tensor(feature1).to(device)
+                # feature2 = torch.tensor(feature2).to(device)
                 decoder_output = self.linears(decoder_output, feature1, feature2)
 
                 target = target_batch[:, i*(sen_num+1)+j] #####
@@ -125,5 +127,5 @@ class Seq2seq_new(nn.Module):
                 decoder_hidden = tmp_decoder_hidden
                 decoder_input = torch.tensor([[2] for n in range(1)], device=device)  # '/'作为输入
                 
-        return decoded_words
+        return decoded_words[0]
         

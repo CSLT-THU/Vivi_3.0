@@ -7,7 +7,7 @@ import os
 import importlib
 import configparser
 import torch.utils.data as Data
-from data_utils import read_test_data, get_keywords
+from data_utils import read_test_data, get_keywords, read_eval_data
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 print('device:', device)
@@ -16,7 +16,7 @@ print('device:', device)
 # predict
 # ==========
 
-def predict(test_data, lines, model, predict_param, ckpt_path, poem_type, cangtou, assign_yun):
+def predict(test_data, lines, targets, model, predict_param, ckpt_path, poem_type, cangtou, assign_yun):
     model.eval()
     context = ''
     for i, data in enumerate(test_data):
@@ -25,14 +25,16 @@ def predict(test_data, lines, model, predict_param, ckpt_path, poem_type, cangto
 
         output_words = model.predict(data, cangtou, predict_param)
         
-        output_words = output_words[0] ###
         output_words.insert(7, '/') # 改
         output_words.insert(15, '/')
         output_words.insert(23, '/')
         
         output_sentence = ''.join(output_words)
-        print((i+1), lines[i], ' ==== ', output_sentence)
         context = context + lines[i] + ' ==== ' + output_sentence + '\n'
+        print((i+1), lines[i], ' ==== ', output_sentence)
+        if targets:
+            print('target:', targets[i], '\n')
+            context = context + targets[i] + '\n'
         
     # logs 
     file = 'result/result_' + ckpt_path.split('/')[1].split('.pkl')[0] + '.txt'
@@ -50,7 +52,8 @@ def main():
     model_name = conf.get('predict', 'model')
     ckpt_path = conf.get('predict', 'ckpt_path')
     test_set = conf.get('predict', 'test_set')
-    use_planning = conf.get('predict', 'use_planning')
+    eval_set = conf.get('predict', 'eval_set')
+    use_planning = conf.get('predict', 'use_planning') == 'True'
     poem_type = conf.get('predict', 'poem_type')
     cangtou = conf.get('predict', 'cangtou')
     keywords = conf.get('predict', 'keywords')
@@ -65,13 +68,16 @@ def main():
     # ========= Preparing Data =========#
 
     # read data
+    targets = None
     if cangtou:
-        test_set, lines = get_keywords(cangtou)
+        test_set, lines = get_keywords(cangtou, use_planning)
     elif keywords:
-        test_set, lines = get_keywords(keywords)
-    else:    
-        test_set, lines = read_test_data(test_set)
-    
+        test_set, lines = get_keywords(keywords, use_planning)
+    elif test_set:    
+        test_set, lines = read_test_data(test_set, use_planning)
+    else: # eval
+        test_set, lines, targets = read_eval_data(eval_set, use_planning)
+        
     # 实例化
     data_path = 'models.' + model_name + '.PoetryData'
     PoetryData = importlib.import_module(data_path)
@@ -97,7 +103,7 @@ def main():
         print('model:', model)
         
         model.load_state_dict(checkpoint['model'])
-        predict(test_data, lines, model, predict_param, ckpt_path, poem_type, cangtou, assign_yun)
+        predict(test_data, lines, targets, model, predict_param, ckpt_path, poem_type, cangtou, assign_yun)
     else: 
         print('ckpt_path does not exist.')
 

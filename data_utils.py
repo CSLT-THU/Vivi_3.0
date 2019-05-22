@@ -9,6 +9,7 @@ import pickle
 from sklearn import model_selection
 
 from word_emb import emb_size, word2id, id2word, emb, word2count, vocab_size, SOS_token, EOS_token, PAD_token, UNK_token
+from planning.plan import planner
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 use_cuda = True if torch.cuda.is_available() else False
@@ -46,29 +47,77 @@ def read_train_data(file):
     return pairs_li  # tmp
 
 
-def read_test_data(file):
+def line2ids(line): # for testset
+    input_words = line.split(' ')
+    input_ids = [word2id.get(word, vocab_size - 1) for word in input_words]  # default = 4776 '-' ?
+    input_ids.insert(0, SOS_token)
+    input_ids.append(EOS_token)
+    return input_ids
+
+
+def plan(line):
+    text = line.replace(' ', '')
+    # text = line.replace(' ', '').replace('-', '') # 关键字全部连在一起
+    keywords = planner.plan(text)
+    new_line = ''
+    for keyword in keywords:
+        for word in keyword:
+            new_line += word + ' '
+        new_line += '- '
+    new_line = new_line.rstrip(' - ')
+    return new_line
+
+
+def get_line(line, lines, use_planning):
+    if not use_planning:
+        lines.append(line.replace(' ', ''))  # 打印用
+    else:
+        line_tmp = line
+        line = plan(line)
+        lines.append(line_tmp.replace(' ', '') + ' == ' + line.replace(' ', ''))
+    return line, lines
+
+
+def read_test_data(file, use_planning):
     print('read test set')
     input_li = []
     lines = []
     for line in open(file, 'r', encoding='utf-8').readlines():
         line = line.replace('\n', '') 
-        lines.append(line.replace(' ', '')) # 打印用
-        input_words = line.split(' ')
-        input_ids = [word2id.get(word, vocab_size - 1) for word in input_words]  # default = 4776 '-' ?
-        input_ids.insert(0, SOS_token)
-        input_ids.append(EOS_token)
+        line, lines = get_line(line, lines, use_planning)
+        input_ids = line2ids(line)
         input_li.append(input_ids)
     print('read test set done')
     return input_li, lines
 
 
-def get_keywords(keywords):
-    input_ids = []
-    for word in keywords:
-        input_ids.append(word2id.get(word, vocab_size - 1))
-    input_ids.insert(0, SOS_token)
-    input_ids.append(EOS_token)
-    return [input_ids], [keywords]
+def read_eval_data(file, use_planning):
+    print('read eval set')
+    input_li = []
+    lines = []
+    targets = []
+    for line in open(file, 'r', encoding='utf-8').readlines():
+        line = line.replace('\n', '') 
+        line, target = line.split('==')
+        
+        target = target.replace(' ', '').replace('\t', '/')
+        targets.append(target)
+
+        line, lines = get_line(line, lines, use_planning)
+        input_ids = line2ids(line)
+        input_li.append(input_ids)
+    print('read test set done')
+    return input_li, lines, targets
+
+
+def get_keywords(keywords, use_planning):
+    input_li = []
+    lines = []
+    line = keywords
+    line, lines = get_line(line, lines, use_planning)
+    input_ids = line2ids(line)
+    input_li.append(input_ids)
+    return input_li, lines
 
 
 def split_dataset(pairs, val_rate):

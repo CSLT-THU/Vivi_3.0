@@ -4,7 +4,12 @@
 
 ### Train a model
 
-#### 1. Set training parameters
+#### 1. Obtain dataset
+Due to the file size limit, the dataset we used cannot be uploaded. 
+If you are a CSLT user, obtain the dataset from the server: `/work4/liuyibo/pycharm/Poetry Generation/poem_vivi_3.6/resource/dataset/poem_1031k_theme.txt`
+Before training, you can split the dataset into train set and test set: first modify the file dirs in `resource/dataset/split_datase.py`, then run it.
+
+#### 2. Set training parameters
 Set training parameters in the section [train] of the file `config/config.ini`. An example looks like:
 ```
 [train]
@@ -22,13 +27,13 @@ model = Seq2seq
 - `teacher_forcing_ratio`: a traning scheme.   
 - `model`: the name of the model, must be a folder name in the dir `models/`.   
 
-#### 2. Run training
+#### 3. Run training
 ```
 python train.py
 ```
-#### 3. Checkpoints
+#### 4. Checkpoints
 Checkpoints will be saved to `ckpt/` every epoch.
-#### 4. Losses
+#### 5. Losses
 Losses of all trainings are recorded in `loss/loss_log`.
 Losses of the last traning are saved to `loss/loss.npy`. 
 Run `plot_loss.py` to visualize the losses of the last training. It will be saved as a jpg file to `loss/`.
@@ -171,6 +176,12 @@ _modern_model_path = os.path.join(save_dir, 'sgns.baidubaike.bigram-char')
 - `data/wordrank.txt` Ranking of words extracted from corpus.
 - `save/ancient_model_5.bin` Ancient word vector, which is the essence of planner.
 All these intermediate files incluede in this repository are created with the corpus `poem_1031k`.
+
+## Tips
+### For CSLT users
+You can run this project directly on the server without any preparation: `/work4/liuyibo/pycharm/Poetry Generation/poem_vivi_3.6/`
+### For All
+Since this is an ongoing project, the model `Transformer` and `Seq2seq_new` provided does not work yet. 
 
 ## File Structure  
 ├── ckpt                                        

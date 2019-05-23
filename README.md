@@ -157,7 +157,7 @@ In order to use the planner, you have to train the planner according to the foll
 ```
 海 滨 清 洗 碧 天 空	地 近 扶 桑 东 复 东	金 镜 曜 辉 云 气 散	茅 檐 先 被 一 轮 红
 ```
-2. Add corpus file names to `char_dict.py` and `poems.py`. e.g.
+2. Add corpus file names to `char_dict.py` and `poems.py`:
 ```
 _corpus_list = ['poem_1031k.txt']
 ```
@@ -179,9 +179,9 @@ All these intermediate files incluede in this repository are created with the co
 
 ## Tips
 ### For CSLT users
-You can run this project directly on the server without any preparation: `/work4/liuyibo/pycharm/Poetry Generation/poem_vivi_3.6/`
+You can run this project directly on the server without any preparation at this dir: `/work4/liuyibo/pycharm/Poetry Generation/poem_vivi_3.6/`
 ### For All
-Since this is an ongoing project, the model `Transformer` and `Seq2seq_new` provided does not work yet. 
+Since this is an ongoing project, the model `Transformer` and `Seq2seq_new` provided do not work yet. 
 
 ## File Structure  
 ├── ckpt                                        
@@ -248,20 +248,20 @@ Since this is an ongoing project, the model `Transformer` and `Seq2seq_new` prov
 │   ├── rank_words.py  
 │   ├── raw   
 │   │   ├── pinyin.txt  
-│   │   ├── poem_1031k.txt (not included)   
+│   │   ├── poem_1031k.txt (__not included__)      
 │   │   ├── shixuehanying.txt  
 │   │   ├── stopwords.txt  
 │   ├── save  
 │   │   ├── ancient_model_5.bin  
-│   │   └── sgns.baidubaike.bigram-char (not included)  
+│   │   └── sgns.baidubaike.bigram-char (__not included__)    
 │   └── segment.py  
 ├── predict.py  
 ├── resource  
 │   ├── dataset  
-│   │   ├── poem_1031k_theme.txt (not included)   
+│   │   ├── poem_1031k_theme.txt (__not included__)     
 │   │   ├── split_dataset.py  
-│   │   ├── test_1031k.txt  
-│   │   ├── train_1031k.txt (not included)   
+│   │   ├── test_1031k.txt  (__not included__)    
+│   │   ├── train_1031k.txt (__not included__)     
 │   │   └── testset.txt  
 │   ├── word_dict.json  
 │   └── word_emb.json  

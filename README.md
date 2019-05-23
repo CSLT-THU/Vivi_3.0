@@ -143,9 +143,9 @@ General procedure of planning can be describe as:
 Segment the sentences in the corpus (use sxhy(诗学含英) as lexicon), then apply TextRank to the segmented words and get the ranking of all words.
 Select keywords for each poem (one keyword per sentence) according to the word ranking. 
 Train a word vector with the keywords. This word vector is the planning model. 
-Note that this word vector is different from the vord vector used in poem generation, which is chatacter based, while this is word based. 
+Note that this word vector is different from the word vector used in poem generation, which is __chatacter-based__, while this is __word-based__. 
 #### 2. Use the planner  
-First extract keywords from the query. When keywords are not enough, expand keywords by randomly picking a word which has small word vector distance with a existing keyword.  
+First extract keywords from the query. When keywords are not enough, expand keywords by randomly picking a word which has small word vector distance with an existing keyword.  
    
 In this project, planning package is utilized in 2 ways:   
 1. Generate keywords from input query for prediction    

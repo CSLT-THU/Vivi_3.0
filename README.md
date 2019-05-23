@@ -174,7 +174,7 @@ _modern_model_path = os.path.join(save_dir, 'sgns.baidubaike.bigram-char')
 - `data/plan_data.txt` keywords extracted from corpus. (4 keywords per poem)
 - `data/plan_history.txt` keywords and poems in the corpus. __This can be used as training dataset for poem generation model.__
 - `data/wordrank.txt` Ranking of words extracted from corpus.
-- `save/ancient_model_5.bin` Ancient word vector, which is the __essence of the planner__.
+- `save/ancient_model_5.bin` Ancient word vector, which is the __essence of the planner__.   
 All these intermediate files inclueded in this repository are created with the corpus `poem_1031k`. If you want to train on your own corpus, delete these imtermediate files first.
 
 ## Tips

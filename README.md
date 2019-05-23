@@ -67,7 +67,7 @@ poem_type = poem7
 - `cangtou`, `keywords`, `test_set`, `eval_set` are mutually exclusive, leave other parameters blank when using one of them. 
 - `model` and  `ckpt_path` are required. 
 - `use_planning` is related to planning mechanism, which extracts/expands 4 keywords from the input query. 
-- When using evaluation set as input, setting `bleu_eval` to True can give a bleu score. 
+- When using evaluation set as input, setting `bleu_eval` to `True` can give a bleu score. 
 - `poem_type` can be set as either `poem7` or `poem5`, which represents the sentence length.
 
 #### 2. Run prediction
@@ -174,15 +174,14 @@ _modern_model_path = os.path.join(save_dir, 'sgns.baidubaike.bigram-char')
 - `data/plan_data.txt` keywords extracted from corpus. (4 keywords per poem)
 - `data/plan_history.txt` keywords and poems in the corpus. __This can be used as training dataset for poem generation model.__
 - `data/wordrank.txt` Ranking of words extracted from corpus.
-- `save/ancient_model_5.bin` Ancient word vector, which is the essence of planner.
-All these intermediate files incluede in this repository are created with the corpus `poem_1031k`.
+- `save/ancient_model_5.bin` Ancient word vector, which is the __essence of the planner__.
+All these intermediate files inclueded in this repository are created with the corpus `poem_1031k`. If you want to train on your own corpus, delete these imtermediate files first.
 
 ## Tips
 ### For CSLT users
 You can run this project directly on the server without any preparation at this dir: `/work4/liuyibo/pycharm/Poetry Generation/poem_vivi_3.6/`
 ### For All
-Since this is an ongoing project, the model `Transformer` and `Seq2seq_new` provided do not work yet. 
-
+Since this is an ongoing project, the model `Transformer` and `Seq2seq_new` provided do not work yet. Bleu score is not available. Poem type only supports `poem7`. 
 ## File Structure  
 ├── ckpt                                        
 │   ├── 04-27_Seq2seq_epoch=7_loss=113.6.pkl  

@@ -148,28 +148,29 @@ In this project, planning package is utilized in 2 ways:
 
 ### Train the Planner
 In order to use the planner, you have to train the planner according to the following steps:
-1. Add corpus file(s) to 'planning/raw/'. The form of the corpus should be like:
+1. Add corpus file(s) to `planning/raw/`. Note that only the poems with 7 characters per sentence count. One line in the corpus file should be like:
 ```
 海 滨 清 洗 碧 天 空	地 近 扶 桑 东 复 东	金 镜 曜 辉 云 气 散	茅 檐 先 被 一 轮 红
 ```
-Note that only the poems with 7 characters per sentence count.  
-2. Add corpus file names to char_dict.py and poems.py. e.g.
+2. Add corpus file names to `char_dict.py` and `poems.py`. e.g.
 ```
 _corpus_list = ['poem_1031k.txt']
 ```
 3. Download modern word2vec model from https://github.com/Embedding/Chinese-Word-Vectors 
-(We recommend SGNS Baidu Encyclopedia Word + Character + Ngram 300d https://pan.baidu.com/s/1Gndr0fReIq_oJ3R34CxlPg)
-Save it to dir `planning/save/`. Add the file name to plan.py:
+(We recommend SGNS Baidu Encyclopedia Word + Character + Ngram 300d. Download link is [here](https://pan.baidu.com/s/1Gndr0fReIq_oJ3R34CxlPg))
+Save it to dir `planning/save/`. Add the file name to `plan.py`:
 ```
 _modern_model_path = os.path.join(save_dir, 'sgns.baidubaike.bigram-char')
 ```
-4. Run plan.py
+4. Run `plan.py`
 5. Intermediate files:
+- `data/poem.txt` dataset after preprocessing from the raw daraset.
 - `data/char_dict.txt` character dictionary. All characters in corpus.
 - `data/plan_data.txt` keywords extracted from corpus. (4 keywords per poem)
-- `data/plan_history.txt` keywords and poems in the corpus. This can be used as training dataset for poem generation model.
+- `data/plan_history.txt` keywords and poems in the corpus. __This can be used as training dataset for poem generation model.__
 - `data/wordrank.txt` Ranking of words extracted from corpus.
 - `save/ancient_model_5.bin` Ancient word vector, which is the essence of planner.
+All these intermediate files incluede in this repository are created with the corpus `poem_1031k`.
 
 ## File Structure  
 ├── ckpt                                        
@@ -236,20 +237,20 @@ _modern_model_path = os.path.join(save_dir, 'sgns.baidubaike.bigram-char')
 │   ├── rank_words.py  
 │   ├── raw   
 │   │   ├── pinyin.txt  
-│   │   ├── poem_1031k.txt   
+│   │   ├── poem_1031k.txt (not included)   
 │   │   ├── shixuehanying.txt  
 │   │   ├── stopwords.txt  
 │   ├── save  
 │   │   ├── ancient_model_5.bin  
-│   │   └── sgns.baidubaike.bigram-char  
+│   │   └── sgns.baidubaike.bigram-char (not included)  
 │   └── segment.py  
 ├── predict.py  
 ├── resource  
 │   ├── dataset  
-│   │   ├── poem_1031k_theme.txt  
+│   │   ├── poem_1031k_theme.txt (not included)   
 │   │   ├── split_dataset.py  
 │   │   ├── test_1031k.txt  
-│   │   ├── train_1031k.txt  
+│   │   ├── train_1031k.txt (not included)   
 │   │   └── testset.txt  
 │   ├── word_dict.json  
 │   └── word_emb.json  

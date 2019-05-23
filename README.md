@@ -4,7 +4,8 @@
 
 ### Train a model
 
-#### 1. Modify training parameters in the section [train] in the file 'config/config.ini'. 
+#### 1. Set training parameters in the config file
+In the section [train] of the file 'config/config.ini'. 
 'ckpt_path': if you want to continue training from a checkpoint, set a checkpoint file; set 'None' if you want to train a new model.
 'val_rate': propotion of the validation set. 'dataset': dataset file path. 'teacher_forcing_ratio': a traning scheme. 'model': the name of the model, must be a folder name in the dir 'models/'. An example looks like:
 ```
@@ -17,14 +18,49 @@ epochs = 50
 teacher_forcing_ratio = 0
 model = Seq2seq
 ``` 
-#### 2. Run training. 
+#### 2. Run training
 ```
 python train.py
 ```
-#### 3. Checkpoints will be saved to 'ckpt/'.
-#### 4. Losses will be saved to 'loss/'
+#### 3. Checkpoints
+Checkpoints will be saved to 'ckpt/' every epoch.
+#### 4. Losses
+Losses of all trainings are recorded in 'loss/loss_log'.
+Losses of the last traning are saved to 'loss/loss.npy'. 
+Run plot_loss.py to visualize the losses of the last training. It will be saved as a jpg file to 'loss/' 
 
 ### Generate a poem
+#### 1. Set prediction parameters in the config file
+In the section [predict] of the file 'config/config.ini'. 
+It supports 4 different input types:
+* Hidden head (Cangtou): get one poem with hidden head. Must be 4 characters.
+* Keywords: get one poem with the keywords. If using multiple keywords, seperate the words with '-', eg.夕阳-高峰-清泉-松叶-蝉噪
+* Test set: get many poems with the keywords of every line.
+* Evaluation set: get many poems and compare them with the target poems. The form is the same as training set. Each line looks like:
+```
+雨 - 江 南 - 水 - 荷 花==十 年 一 觉 江 南 雨	谁 是 江 南 意 中 人	竹 筏 清 歌 山 映 水	荷 花 香 远 亦 天 真
+```
+The 4 input types are mutually exclusive, leave other parameters blank when using one of them. 
+'model' and  'ckpt_path' are required. 
+'use_planning' is related to planning mechanism, which extracts/expands 4 keywords from the input query. 
+When using evaluation set as input, setting 'bleu_eval' to True can give a bleu score. 
+'poem_type' can be set as either 'poem7' or 'poem5', which means the sentence length.
+An example of predict config looks like:
+
+```
+[predict]
+model = Seq2seq
+ckpt_path = ckpt/05-14_Seq2seq_epoch=6_loss=130.8.pkl
+cangtou = 水木清华
+keywords = 夕阳-高峰-清泉-松叶-蝉噪
+test_set = resource/dataset/testset.txt
+eval_set = resource/dataset/test_1031k.txt
+use_planning = True
+bleu_eval = False
+poem_type = poem7
+```
+
+2. Run prediction
 ```
 python predict.py
 ```
@@ -42,6 +78,8 @@ keywords = 夕阳-高峰-清泉-松叶-蝉噪
 test_set = resource/dataset/testset.txt
 eval_set = resource/dataset/test_1031k.txt
 ```
+
+### Add a new model
 
 ## File Structure
 ├── ckpt                                        

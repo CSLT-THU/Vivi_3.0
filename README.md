@@ -20,7 +20,7 @@ model = Seq2seq
 - `val_rate`: propotion of the validation set.   
 - `dataset`: dataset file path.   
 - `teacher_forcing_ratio`: a traning scheme.   
-- `model`: the name of the model, must be a folder name in the dir 'models/'.   
+- `model`: the name of the model, must be a folder name in the dir `models/`.   
 
 #### 2. Run training
 ```
@@ -31,17 +31,15 @@ Checkpoints will be saved to `ckpt/` every epoch.
 #### 4. Losses
 Losses of all trainings are recorded in `loss/loss_log`.
 Losses of the last traning are saved to `loss/loss.npy`. 
-Run plot_loss.py to visualize the losses of the last training. It will be saved as a jpg file to `loss/`.
+Run `plot_loss.py` to visualize the losses of the last training. It will be saved as a jpg file to `loss/`.
 
 ### Generate a poem
 #### 1. Set prediction parameters in the config file
 In the section [predict] of the file `config/config.ini`. 
 It supports 4 different input types:
 * Hidden head (Cangtou): get one poem with hidden head. Must be 4 characters.
-* Keywords: get one poem with the keywords. It can be a set of keywords or a sentence. If using multiple keywords, seperate the words with '-', e.g.
-```
-夕阳-高峰-清泉-松叶-蝉噪
-```
+* Keywords: get one poem with the keywords. It can be a set of keywords or a sentence. If using multiple keywords, seperate the words with '-', 
+e.g. `夕阳-高峰-清泉-松叶-蝉噪`  
 * Test set: get many poems with the keywords of every line.
 * Evaluation set: get many poems and compare them with the target poems. The form is the same as training set. Each line looks like:
 ```
@@ -64,7 +62,7 @@ poem_type = poem7
 - `cangtou`, `keywords`, `test_set`, `eval_set` are mutually exclusive, leave other parameters blank when using one of them. 
 - `model` and  `ckpt_path` are required. 
 - `use_planning` is related to planning mechanism, which extracts/expands 4 keywords from the input query. 
-- When using evaluation set as input, setting 'bleu_eval' to True can give a bleu score. 
+- When using evaluation set as input, setting `bleu_eval` to True can give a bleu score. 
 - `poem_type` can be set as either `poem7` or `poem5`, which represents the sentence length.
 
 #### 2. Run prediction
@@ -101,11 +99,11 @@ class Model_name(nn.Module):
         ...
         return decoded_words
 ```  
-- `model_param` is the the dictionary of parameters to initiate the model, which are definded in the model config file 'config/config_Model_name.ini'. 
-Note that all values are in `string` type, convert to other types when needed.
+- `model_param` is the the dictionary of parameters to initiate the model, which are definded in the model config file `config/config_Model_name.ini`. 
+Note that all values are in `String` type, convert to other types when needed.
 - `data` is one batch data of traning data generated from DataLoader.
-- `criterion` is defined as nn.CrossEntropyLoss() in train.py. Principlly it's unnecessary to change this.
-- `predict_param` represents the parameters to initiate the model, which are definded in the [predict] section of config file 'config/config.ini'.
+- `criterion` is defined as `nn.CrossEntropyLoss()` in `train.py`. Principlly it's unnecessary to change this.
+- `predict_param` represents the parameters to initiate the model, which are definded in the [predict] section of config file `config/config.ini`.
 - `decoded words` should be the list of all characters in the poem, without any special sign between sentences. 
 
 #### PoetryData.py
@@ -122,7 +120,7 @@ class PoetryData(Dataset):
         ...
 ```
 - `src_max_len` and `tgt_max_len` are required parameters in model config file.
-- `test` default value is set to False. This parameter allowes the return of __getitem__ method to be different in traning and prediction.
+- `test` default value is set to False. This parameter allowes the return of \_\_getitem\_\_ method to be different in traning and prediction.
 
 #### Optim.py
 ```
@@ -133,6 +131,7 @@ Return an optimizer for training.
 
 
 ## Use Planning
+### Description
 Detailed desciption of planning can be found in this repository https://github.com/CSLT-THU/Poetry-Planning-for-ViVi_3.0.   
 General procedure of planning can be describe as:  
 #### 1. Train the planner  
@@ -147,6 +146,7 @@ In this project, planning package is utilized in 2 ways:
 1. Generate keywords from input query for prediction    
 2. Extract keywords from a poem for creating dataset   
 
+### Train the Planner
 In order to use the planner, you have to train the planner according to the following steps:
 1. Add corpus file(s) to 'planning/raw/'. The form of the corpus should be like:
 ```
@@ -210,7 +210,7 @@ _modern_model_path = os.path.join(save_dir, 'sgns.baidubaike.bigram-char')
 │   └── Transformer  
 │       ├── Beam.py  
 │       ├── Constants.py  
-│       ├── __init__.py  
+│       ├── \_\_init\_\_.py  
 │       ├── Layers.py  
 │       ├── Models.py  
 │       ├── Modules.py  
@@ -229,7 +229,7 @@ _modern_model_path = os.path.join(save_dir, 'sgns.baidubaike.bigram-char')
 │   │   ├── sxhy_dict.txt  
 │   │   └── wordrank.txt  
 │   ├── data_utils.py  
-│   ├── __init__.py  
+│   ├── \_\_init\_\_.py  
 │   ├── paths.py  
 │   ├── plan.py  
 │   ├── poems.py  

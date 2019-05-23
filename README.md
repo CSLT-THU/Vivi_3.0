@@ -4,7 +4,7 @@
 
 ### Train a model
 
-1. Modify training parameters in the section [train] in the file 'config/config.ini'. 
+#### 1. Modify training parameters in the section [train] in the file 'config/config.ini'. 
 'ckpt_path': if you want to continue training from a checkpoint, set a checkpoint file; set 'None' if you want to train a new model.
 'val_rate': propotion of the validation set. 'dataset': dataset file path. 'teacher_forcing_ratio': a traning scheme. 'model': the name of the model, must be a folder name in the dir 'models/'. An example looks like:
 ```
@@ -17,12 +17,12 @@ epochs = 50
 teacher_forcing_ratio = 0
 model = Seq2seq
 ``` 
-2. Run training. 
+#### 2. Run training. 
 ```
 python train.py
 ```
-3. Checkpoints will be saved to 'ckpt/'.
-4. Losses will be saved to 'loss/'
+#### 3. Checkpoints will be saved to 'ckpt/'.
+#### 4. Losses will be saved to 'loss/'
 
 ### Generate a poem
 ```

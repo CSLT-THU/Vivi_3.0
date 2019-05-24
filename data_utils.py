@@ -90,7 +90,6 @@ def read_test_data(file, use_planning):
     print('read test set done')
     return input_li, lines
 
-
 def read_eval_data(file, use_planning):
     print('read eval set')
     input_li = []
@@ -108,6 +107,32 @@ def read_eval_data(file, use_planning):
         input_li.append(input_ids)
     print('read test set done')
     return input_li, lines, targets
+
+
+def read_eval_data_2(file, use_planning):
+    print('read eval set')
+    input_li_1 = [] #
+    input_li_2 = [] #
+    lines = []
+    targets = []
+    for line in open(file, 'r', encoding='utf-8').readlines():
+        line = line.replace('\n', '')
+        line, target = line.split('==')
+
+        target = target.replace(' ', '').replace('\t', '/')
+        targets.append(target)
+
+        line, lines = get_line(line, lines, use_planning)
+        #
+        line_li = line.split(' - ')
+        line1 = line_li[0] + line_li[1]
+        line2 = line_li[2] + line_li[3]
+        input_ids_1 = line2ids(line1)
+        input_li_1.append(input_ids_1)
+        input_ids_2 = line2ids(line2)
+        input_li_2.append(input_ids_2)
+    print('read test set done')
+    return (input_li_1, input_li_2), lines, targets
 
 
 def get_keywords(keywords, use_planning):

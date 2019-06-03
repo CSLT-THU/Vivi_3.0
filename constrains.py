@@ -31,6 +31,24 @@ elif poem_type == 'poem7':
     else:
         lv_list = [['0', 'p', '0', 'z', '0', 'p', '0'], ['0', 'z', '0', 'p', '0', 'z', 'p'],
                     ['0', 'z', '0', 'p', '0', 'z', '0'], ['0', 'p', '0', 'z', '0', 'p', 'p']]
+yun_li = [
+    ['a', 'ia', 'ua'],
+    ['ai', 'uai'],
+    ['an', 'ian', 'uan'],
+    ['ang', 'iang', 'uang'],
+    ['ao', 'iao'],
+    ['e', 'o', 'uo'], # not (y)e
+    ['ei', 'ui'],
+    ['en', 'in', 'un'],
+    ['eng', 'ing', 'ong', 'iong'],
+    ['i', 'er'], 
+    ['i1'], # z c s 
+    ['i2'], # zh ch sh
+    ['ie', 'e1'], # (y)e
+    ['ou', 'iu'],
+    ['u','v'], # 本应分开
+    ['ve', 'ue'] 
+]
 
 with open('resource/word_dict.json', 'r', encoding='utf-8') as f1:
     word_dict = json.load(f1)
@@ -65,7 +83,14 @@ def get_next_word(decoder_output, decoded_words):
         # Yun
         if sen_num in yun_sen[1:] and w_num == sen_len:
             yun_word = decoded_words[yun_sen[0]*sen_len-1] # 第一个押韵句子的最后一个字
-            if not word_dict[candidate_word]['yun'] == word_dict[yun_word]['yun']:
+            candidate_yun = -1
+            yun = -2
+            for i in range(len(yun_li)):
+                if word_dict[candidate_word]['yun'] in yun_li[i]:
+                    candidate_yun = i
+                if word_dict[yun_word]['yun'] in yun_li[i]:
+                    yun = i
+            if not candidate_yun == yun:
                 continue
         # Lv
         candidate_lv = word_dict[candidate_word]['pz']
@@ -75,10 +100,14 @@ def get_next_word(decoder_output, decoded_words):
         
         id = indices[i]
         word = candidate_word 
-        # print(i+1)
-        # print(word)
         break
         
     if word == 'N': # if cannot meet all requirements
         print(candidates)
     return id, word
+
+def get_yun(word):
+    return word_dict[word]['yun']
+
+def get_lv(word):
+    return word_dict[word]['pz']

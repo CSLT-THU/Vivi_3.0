@@ -4,6 +4,7 @@ import torch
 import time
 import os
 import json
+import argparse
 
 import importlib
 import configparser
@@ -58,24 +59,42 @@ def predict(test_data, lines, targets, model, predict_param, ckpt_path, poem_typ
 
 
 def main():
-    # ========= Get Parameter =========#
+    # ========= Loading Params =========#
+    # predict param
+    parser = argparse.ArgumentParser(description='Vivi')
+
+    parser.add_argument('--model_name', type=str, default='Seq2seq_5')
+    parser.add_argument('--ckpt_path', type=str, default='ckpt/06-05_Seq2seq_5_epoch=1_loss=146.1.pkl')
+    parser.add_argument('--cangtou', type=str, default='')
+    parser.add_argument('--keywords', type=str, default='')
+    parser.add_argument('--test_set', type=str, default='')
+    parser.add_argument('--eval_set', type=str, default='resource/dataset/test_1031k.txt')
+    parser.add_argument('--use_planning', type=bool, default=False)
+    parser.add_argument('--bleu_eval', type=bool, default=False)
+    parser.add_argument('--poem_type', type=str, default='poem7')
+
+    args = parser.parse_args()
+
+    model_name = args.model_name
+    ckpt_path = args.ckpt_path
+    cangtou = args.cangtou
+    keywords = args.keywords
+    test_set = args.test_set
+    eval_set = args.eval_set
+    use_planning = args.use_planning
+    bleu_eval = args.bleu_eval
+    poem_type = args.poem_type
+    
+    predict_param = vars(args)
+    print('predict param: ', predict_param)
+    
+    # model param
     conf = configparser.ConfigParser()
-    conf.read('config/config.ini', encoding="utf-8-sig")
-
-    model_name = conf.get('predict', 'model')
-    ckpt_path = conf.get('predict', 'ckpt_path')
-    test_set = conf.get('predict', 'test_set')
-    eval_set = conf.get('predict', 'eval_set')
-    use_planning = conf.get('predict', 'use_planning') == 'True'
-    poem_type = conf.get('predict', 'poem_type')
-    cangtou = conf.get('predict', 'cangtou')
-    keywords = conf.get('predict', 'keywords')
-
     conf.read('config/config_'+model_name+'.ini')
-    predict_param_li = conf.items('predict_param')
-    predict_param = {}
-    for item in predict_param_li:
-        predict_param[item[0]] = item[1]
+    model_param_li = conf.items('model_param')
+    model_param = {}
+    for item in model_param_li:
+        model_param[item[0]] = item[1]
 
     # ========= Preparing Data =========#
 
@@ -93,8 +112,8 @@ def main():
     # 实例化
     data_path = 'models.' + model_name + '.PoetryData'
     PoetryData = importlib.import_module(data_path)
-    test_Dataset = getattr(PoetryData, 'PoetryData')(test_set, src_max_len=int(predict_param['input_max_len']), 
-                                                     tgt_max_len=int(predict_param['target_max_len']), test=True)
+    test_Dataset = getattr(PoetryData, 'PoetryData')(test_set, src_max_len=int(model_param['input_max_len']), 
+                                                     tgt_max_len=int(model_param['target_max_len']), test=True)
     
     # 变成小批
     test_data = Data.DataLoader(
@@ -108,13 +127,18 @@ def main():
     if os.path.exists(ckpt_path):
         checkpoint = torch.load(ckpt_path, map_location=lambda storage, loc: storage)
         model_param = checkpoint['model_param']
-        
         model_path = 'models.' + model_name + '.' + model_name
         Model = importlib.import_module(model_path)  # 导入模块
         model = getattr(Model, model_name)(model_param)  # 反射并实例化
         print('model:', model)
         
         model.load_state_dict(checkpoint['model'])
+        
+        if 'train_param' in checkpoint.keys():
+            print('train param:', checkpoint['train_param'])
+        else:
+            print('train param not recorded.')
+        
         predict(test_data, lines, targets, model, predict_param, ckpt_path, poem_type, cangtou)
     else: 
         print('ckpt_path does not exist.')

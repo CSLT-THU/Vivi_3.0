@@ -5,7 +5,8 @@ import os
 import time
 import math
 import numpy as np
-
+import argparse
+import numpy as np
 
 import torch
 import torch.nn as nn
@@ -16,11 +17,10 @@ from torch.utils.data.dataset import Dataset
 import configparser
 import importlib
 
-from data_utils import read_train_data, read_test_data, split_dataset, sort_batch_data
+from data_utils import read_train_data, read_train_data_2, read_test_data, split_dataset, sort_batch_data
 from loss.loss_logs import save_loss, write_log_head, write_log_loss
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-print('device:', device)
 
 def val(val_data):
     return 0
@@ -44,7 +44,7 @@ def train_batch(batch_size, data,
     # 所以一共除了batch size * seq len。 如果想取字的平均，应只除80个句子的平均seq len，不应除batch size。
 
 
-def train(train_data, val_data, model, optimizer, batch_size, epochs, last_epoch, val_rate, teacher_forcing_ratio, model_param):
+def train(train_data, val_data, model, optimizer, batch_size, epochs, last_epoch, val_rate, teacher_forcing_ratio, model_param, train_param):
     model.train()
 
     # plot loss init
@@ -77,6 +77,7 @@ def train(train_data, val_data, model, optimizer, batch_size, epochs, last_epoch
             if len(data[0]) != batch_size:
                 continue
             
+            step += 1
             if step % 100 == 0: # 临时
                 print('step:', step)
 
@@ -84,7 +85,7 @@ def train(train_data, val_data, model, optimizer, batch_size, epochs, last_epoch
                                optimizer, criterion, teacher_forcing_ratio)
             loss_total += loss
 
-        loss_avg = round((loss_total / step), 1)
+        loss_avg = round((loss_total / step), 5)
         print(' - Training loss: {loss:}(per sentence), elapse: {elapse:3.1f} min'.format(
             loss=loss_avg, elapse=(time.time() - start) / 60))
 
@@ -98,44 +99,66 @@ def train(train_data, val_data, model, optimizer, batch_size, epochs, last_epoch
         # write loss log, save loss for every epoch, in case of interruption
         plot_losses.append(loss_avg)
         plot_epoches.append(epoch)
-        write_log_loss(epoch, loss_avg, val_loss_avg)
-        save_loss(plot_epoches, plot_losses, plot_val_losses, None, None, batch_size, None)
+        with open('loss/loss_log', 'a') as f:
+            f.write('epoch: {0} | train loss: {1} | val loss: {2}\n'.format(
+                str(epoch), str(loss_avg), str(val_loss_avg)))
+        dic = {'plot_epoches': plot_epoches, 'plot_losses': plot_losses, 'plot_val_losses': plot_val_losses, 'model_param': model_param, 'train_param': train_param}
+        np.save('loss/loss.npy', dic)  # 每次重写会覆盖
 
         # save model for every epoch
         print('save model')
         t = time.strftime("%m-%d", time.localtime())  # "%m-%d-%H:%M"
-        state = {'model': model.state_dict(), 'model_param': model_param, 'epoch': epoch}
+        state = {'model': model.state_dict(), 'train_param':train_param, 'model_param': model_param, 'epoch': epoch}
         torch.save(state, 'ckpt/' + str(t) + '_' + model_param['model_name'] + '_epoch=' + \
                    str(epoch) + '_loss=%.1f' % loss_avg + '.pkl')
 
 
 def main():
+    t = time.strftime("%m-%d %H:%M", time.localtime())
+    print('\n', t, '\n')
+    print('device:', device)
+
     # ========= Get Parameter =========#
-    conf = configparser.ConfigParser()
-    conf.read('config/config.ini')
+    # train parameters
+    parser = argparse.ArgumentParser(description='Vivi')
     
-    ckpt_path = conf.get('train','ckpt_path')
-    val_rate =  float(conf.get('train','val_rate'))
-    dataset = conf.get('train','dataset')
-    batch_size = int(conf.get('train','batch_size'))
-    epochs = int(conf.get('train','epochs'))
-    teacher_forcing_ratio = float(conf.get('train','teacher_forcing_ratio'))
-    model_name = conf.get('train','model')
+    parser.add_argument('--dataset', type=str, default='resource/dataset/poem_480.txt')
+    parser.add_argument('--epochs', type=int, default=1)
+    parser.add_argument('--ckpt_path', type=str, default='')
+    parser.add_argument('--val_rate', type=float, default=0.1)
+    parser.add_argument('--batch_size', type=int, default=80)
+    parser.add_argument('--teacher_forcing_ratio', type=float, default=0.8)
+    parser.add_argument('--model_name', type=str, default='Seq2seq')
+    parser.add_argument('--note', type=str, default='')
     
-    # load model params
+    args = parser.parse_args()
+    
+    dataset = args.dataset
+    epochs = args.epochs
+    ckpt_path = args.ckpt_path
+    val_rate = args.val_rate
+    batch_size = args.batch_size
+    teacher_forcing_ratio = args.teacher_forcing_ratio
+    model_name = args.model_name
+    
+    train_param = vars(args)
+    print('train param: ', train_param)
+      
+    # load model parameters    
     checkpoint = None
     if os.path.exists(ckpt_path):
         checkpoint = torch.load(ckpt_path)
         model_param = checkpoint['model_param']
         last_epoch = checkpoint['epoch']
     else:
+        conf = configparser.ConfigParser()
         conf.read('config/config_'+model_name+'.ini')
         model_param_li = conf.items('model_param')
         model_param = {'model_name': model_name}
         for item in model_param_li:
             model_param[item[0]] = item[1]
         last_epoch = 0
-    print('checkpoint:', checkpoint)
+    print('model param: ', model_param)
 
     # ========= Preparing Data =========#
 
@@ -150,7 +173,6 @@ def main():
                                                      tgt_max_len=int(model_param['target_max_len']))
     val_Dataset = getattr(PoetryData, 'PoetryData')(val_pairs, src_max_len=int(model_param['input_max_len']), 
                                                      tgt_max_len=int(model_param['target_max_len']))# 反射并实例化
-    print('dataset:', train_Dataset)
     
     # 变成小批
     train_data = Data.DataLoader(
@@ -160,10 +182,10 @@ def main():
         # num_workers=2,  # 多线程来读数据，提取xy的时候几个数据一起提取
     )
     val_data = Data.DataLoader(
-        dataset=val_Dataset,  # torch TensorDataset format
-        batch_size=batch_size,  # mini batch size
-        shuffle=True,  # 要不要打乱数据 (打乱比较好)
-        # num_workers=2,  # 多线程来读数据，提取xy的时候几个数据一起提取
+        dataset=val_Dataset,  
+        batch_size=batch_size,  
+        shuffle=True,  
+        # num_workers=2,  
     )
 
     # ========= Preparing Model =========#
@@ -183,9 +205,12 @@ def main():
         # checkpoint = torch.load(ckpt_path, map_location=lambda storage, loc: storage) # 重复load
         model.load_state_dict(checkpoint['model'])
 
-    write_log_head(dataset, None, batch_size, ckpt_path)  # 待修改
-
-    train(train_data, val_data, model, optimizer, batch_size, epochs, last_epoch, val_rate, teacher_forcing_ratio, model_param)
+    # write log head
+    with open('loss/loss_log', 'a') as f:
+        f.write('\n\n' + str(t) + '\n' + str(train_param) + '\n' + str(model_param) + '\n')
+        
+    print('start training')
+    train(train_data, val_data, model, optimizer, batch_size, epochs, last_epoch, val_rate, teacher_forcing_ratio, model_param, train_param)
 
 
 if __name__ == '__main__':

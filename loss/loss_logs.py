@@ -11,11 +11,18 @@ def save_loss(plot_epoches, plot_losses, plot_val_losses, dataset, learning_rate
 
 
 # write loss log
-def write_log_head(dataset, learning_rate, batch_size, checkpoint):
+def write_log_head(train_param):
     t = time.strftime("%m-%d %H:%M", time.localtime())
     with open('loss/loss_log', 'a') as f:
-        f.write('\n{0} \ndataset = {1} \nlearning rate = {2} \nbatch size = {3} \ncheckpoint = {4} \n'
-                .format(t, dataset, str(learning_rate), str(batch_size), checkpoint))
+        f.write('\n\n')
+        f.write(t)
+        f.write('\n' + str(train_param) + '\n')
+
+# def write_log_head(dataset, learning_rate, batch_size, checkpoint):
+#     t = time.strftime("%m-%d %H:%M", time.localtime())
+#     with open('loss/loss_log', 'a') as f:
+#         f.write('\n{0} \ndataset = {1} \nlearning rate = {2} \nbatch size = {3} \ncheckpoint = {4} \n'
+#                 .format(t, dataset, str(learning_rate), str(batch_size), checkpoint))
 
 
 def write_log_loss(epoch, plot_loss_avg, val_loss_avg):

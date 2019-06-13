@@ -9,7 +9,7 @@ import pickle
 from sklearn import model_selection
 
 from word_emb import emb_size, word2id, id2word, emb, word2count, vocab_size, SOS_token, EOS_token, PAD_token, UNK_token
-from planning.plan import planner
+# from planning.plan import planner
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 use_cuda = True if torch.cuda.is_available() else False
@@ -44,6 +44,43 @@ def read_train_data(file):
 
     print('training set size:', len(pairs_li))
     print('read traning set done')
+    return pairs_li  # tmp
+
+def read_train_data_2(file):
+    print('read training set')
+    # pairs_tensor = []
+    pairs_li = []
+    lines = 0  # 一共多少个训练数据
+
+    for line in open(file, 'r', encoding='utf-8').readlines():
+        lines += 1
+        try:
+            source, target = line.split('==')
+        except:
+            print('format mismatch in dataset: ', line.split('=='))
+            continue
+
+        source_1 = source.split(' - ')[0] + ' - ' +  source.split(' - ')[1]
+        source_2 = source.split(' - ')[2] + ' - ' + source.split(' - ')[3]
+        source_words_1 = ('START1 ' + source_1 + ' END1').split(' ')
+        source_words_2 = ('START1 ' + source_2 + ' END1').split(' ')
+        source_ids_1 = [word2id.get(word, vocab_size - 1) for word in source_words_1]
+        source_ids_2 = [word2id.get(word, vocab_size - 1) for word in source_words_2]
+
+        target = target.replace('\n', '')
+        target_1 = target.split('\t')[0] + ' / ' + target.split('\t')[1]
+        target_2 = target.split('\t')[2] + ' / ' + target.split('\t')[3]
+        target_words_1 = (target_1 + ' END').split(' ')  # 用5个句子训练
+        target_words_2 = (target_2 + ' END').split(' ')
+        target_ids_1 = [word2id.get(word, vocab_size - 1) for word in target_words_1]
+        target_ids_2 = [word2id.get(word, vocab_size - 1) for word in target_words_2]
+
+        if len(target_ids_1) == 16: # 只考虑七言
+            pairs_li.append([source_ids_1, target_ids_1])
+        if len(target_ids_2) == 16:
+            pairs_li.append([source_ids_2, target_ids_2])
+
+    print('training set size:', len(pairs_li))
     return pairs_li  # tmp
 
 
@@ -125,8 +162,10 @@ def read_eval_data_2(file, use_planning):
         line, lines = get_line(line, lines, use_planning)
         #
         line_li = line.split(' - ')
-        line1 = line_li[0] + line_li[1]
-        line2 = line_li[2] + line_li[3]
+        line1 = line_li[0] + ' - ' + line_li[1]
+        line2 = line_li[2] + ' - ' + line_li[3]
+        # line1 = line_li[0] + ' - ' + line_li[1] + ' - ' + line_li[0] + ' - ' + line_li[1]
+        # line2 = line_li[2] + ' - ' + line_li[3] + ' - ' + line_li[2] + ' - ' + line_li[3]
         input_ids_1 = line2ids(line1)
         input_li_1.append(input_ids_1)
         input_ids_2 = line2ids(line2)

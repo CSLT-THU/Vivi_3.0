@@ -3,20 +3,25 @@ from __future__ import unicode_literals, print_function, division
 import torch
 import time
 import os
+import json
 
 import importlib
 import configparser
 import torch.utils.data as Data
-from data_utils import read_test_data, get_keywords, read_eval_data
+from data_utils import read_test_data, get_keywords, read_eval_data, read_eval_data_2 ###
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 print('device:', device)
 
+# word dict
+with open('resource/word_dict.json', 'r', encoding='utf-8') as f1:
+    word_dict = json.load(f1)
+    
 ######################################################################
 # predict
 # ==========
 
-def predict(test_data, lines, targets, model, predict_param, ckpt_path, poem_type, cangtou, assign_yun):
+def predict(test_data, lines, targets, model, predict_param, ckpt_path, poem_type, cangtou):
     model.eval()
     context = ''
     for i, data in enumerate(test_data):
@@ -30,11 +35,19 @@ def predict(test_data, lines, targets, model, predict_param, ckpt_path, poem_typ
         output_words.insert(23, '/')
         
         output_sentence = ''.join(output_words)
-        context = context + lines[i] + ' ==== ' + output_sentence + '\n'
-        print((i+1), lines[i], ' ==== ', output_sentence)
+        context_poem = str(i+1) + '\n' + lines[i] + ' ==== ' + output_sentence + '\n'
+        ###
+        word1 = output_words[14]
+        word2 = output_words[30]
+        yun1 = word_dict[word1]['yun']
+        yun2 = word_dict[word2]['yun']
+        
+        context = context + context_poem
+        print(context_poem, yun1, yun2)
         if targets:
-            print('target:', targets[i], '\n')
-            context = context + targets[i] + '\n'
+            target = lines[i] + ' ==== ' + targets[i] + '\n'
+            context = context + target
+            print(target)
         
     # logs 
     file = 'result/result_' + ckpt_path.split('/')[1].split('.pkl')[0] + '.txt'
@@ -57,7 +70,6 @@ def main():
     poem_type = conf.get('predict', 'poem_type')
     cangtou = conf.get('predict', 'cangtou')
     keywords = conf.get('predict', 'keywords')
-    assign_yun = conf.get('predict', 'assign_yun')
 
     conf.read('config/config_'+model_name+'.ini')
     predict_param_li = conf.items('predict_param')
@@ -76,7 +88,7 @@ def main():
     elif test_set:    
         test_set, lines = read_test_data(test_set, use_planning)
     else: # eval
-        test_set, lines, targets = read_eval_data(eval_set, use_planning)
+        test_set, lines, targets = read_eval_data(eval_set, use_planning) # read_eval_data May24
         
     # 实例化
     data_path = 'models.' + model_name + '.PoetryData'
@@ -103,7 +115,7 @@ def main():
         print('model:', model)
         
         model.load_state_dict(checkpoint['model'])
-        predict(test_data, lines, targets, model, predict_param, ckpt_path, poem_type, cangtou, assign_yun)
+        predict(test_data, lines, targets, model, predict_param, ckpt_path, poem_type, cangtou)
     else: 
         print('ckpt_path does not exist.')
 

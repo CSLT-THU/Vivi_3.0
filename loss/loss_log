@@ -1,336 +1,772 @@
 
-04-28 22:06 
+04-28 21:45 
 dataset = resource/dataset/train_58k.txt 
 learning rate = None 
 batch size = 80 
 checkpoint = None 
 
-04-28 22:09 
-dataset = resource/dataset/train_58k.txt 
+05-05 18:03 
+dataset = resource/dataset/poem_1031k_theme.txt 
+learning rate = None 
+batch size = 80 
+checkpoint = None 
+epoch: 1 | train loss: 171.8 | val loss: 0
+epoch: 2 | train loss: 151.0 | val loss: 0
+epoch: 3 | train loss: 146.8 | val loss: 0
+epoch: 4 | train loss: 145.3 | val loss: 0
+epoch: 5 | train loss: 143.6 | val loss: 0
+
+05-05 21:29 
+dataset = resource/dataset/poem_1031k_theme.txt 
 learning rate = None 
 batch size = 80 
 checkpoint = None 
 
-04-29 11:19 
-dataset = resource/dataset/train_58k.txt 
+05-05 21:33 
+dataset = resource/dataset/poem_1031k_theme.txt 
 learning rate = None 
 batch size = 80 
 checkpoint = None 
 
-04-29 11:22 
-dataset = resource/dataset/train_58k.txt 
+05-05 21:37 
+dataset = resource/dataset/poem_1031k_theme.txt 
 learning rate = None 
 batch size = 80 
 checkpoint = None 
 
-04-29 11:24 
-dataset = resource/dataset/train_58k.txt 
+05-06 11:34 
+dataset = resource/dataset/poem_1031k_theme.txt 
 learning rate = None 
 batch size = 80 
 checkpoint = None 
 
-04-29 14:57 
-dataset = resource/dataset/train_58k.txt 
+05-06 11:35 
+dataset = resource/dataset/poem_1031k_theme.txt 
 learning rate = None 
 batch size = 80 
 checkpoint = None 
 
-04-29 15:11 
-dataset = resource/dataset/train_58k.txt 
+05-29 11:39 
+dataset = resource/dataset/poem_1031k_theme.txt 
 learning rate = None 
 batch size = 80 
 checkpoint = None 
 
-04-29 15:14 
-dataset = resource/dataset/train_58k.txt 
+05-29 11:43 
+dataset = resource/dataset/poem_1031k_theme.txt 
 learning rate = None 
 batch size = 80 
 checkpoint = None 
 
-04-29 16:37 
-dataset = resource/dataset/train_58k.txt 
+05-29 11:48 
+dataset = resource/dataset/poem_1031k_theme.txt 
 learning rate = None 
 batch size = 80 
 checkpoint = None 
 
-04-29 17:53 
-dataset = resource/dataset/train_58k.txt 
+05-29 11:59 
+dataset = resource/dataset/poem_1031k_theme.txt 
+learning rate = None 
+batch size = 80 
+checkpoint = None 
+前后两句分开训
+epoch: 1 | train loss: 69.2 | val loss: 0
+epoch: 2 | train loss: 64.7 | val loss: 0
+epoch: 3 | train loss: 64.1 | val loss: 0
+
+05-30 10:49 
+dataset = resource/dataset/poem_1031k_theme.txt 
 learning rate = None 
 batch size = 80 
 checkpoint = None 
 
-04-29 19:03 
-dataset = resource/dataset/train_58k.txt 
+05-30 10:50 
+dataset = resource/dataset/poem_1031k_theme.txt 
 learning rate = None 
 batch size = 80 
 checkpoint = None 
 
-04-30 12:43 
-dataset = resource/dataset/train_58k.txt 
+05-30 10:51 
+dataset = resource/dataset/poem_1031k_theme.txt 
 learning rate = None 
 batch size = 80 
 checkpoint = None 
 
-04-30 12:45 
-dataset = resource/dataset/train_58k.txt 
+05-30 10:54 
+dataset = resource/dataset/poem_1031k_theme.txt 
+learning rate = None 
+batch size = 80 
+checkpoint = None 
+teacher forcing ratio = 0.5
+epoch: 1 | train loss: 194.1 | val loss: 0
+epoch: 2 | train loss: 174.7 | val loss: 0
+epoch: 3 | train loss: 171.1 | val loss: 0
+
+05-30 14:40 
+dataset = resource/dataset/poem_1031k_theme.txt 
+learning rate = None 
+batch size = 80 
+checkpoint = None 
+teacher forcing ratio = 0.8
+epoch: 1 | train loss: 176.4 | val loss: 0
+epoch: 2 | train loss: 153.8 | val loss: 0
+epoch: 3 | train loss: 150.1 | val loss: 0
+epoch: 4 | train loss: 148.0 | val loss: 0
+
+05-30 18:08 
+dataset = resource/dataset/poem_1031k_theme.txt 
+learning rate = None 
+batch size = 80 
+checkpoint = None 
+teacher forcing ratio = 0.65
+epoch: 1 | train loss: 185.6 | val loss: 0
+epoch: 2 | train loss: 164.5 | val loss: 0
+epoch: 3 | train loss: 159.9 | val loss: 0
+epoch: 4 | train loss: 158.3 | val loss: 0
+
+06-02 13:06 
+dataset = resource/dataset/poem_1031k_theme.txt 
 learning rate = None 
 batch size = 80 
 checkpoint = None 
 
-04-30 14:49 
-dataset = resource/dataset/train_480.txt 
-learning rate = None 
-batch size = 80 
-checkpoint = None 
-epoch: 1 | train loss: 337.9 | val loss: 0
-epoch: 2 | train loss: 337.4 | val loss: 0
-
-04-30 15:06 
-dataset = resource/dataset/train_480.txt 
+06-02 13:49 
+dataset = resource/dataset/poem_1031k_theme.txt 
 learning rate = None 
 batch size = 80 
 checkpoint = None 
 
-04-30 15:10 
-dataset = resource/dataset/train_480.txt 
+06-02 13:53 
+dataset = resource/dataset/poem_1031k_theme.txt 
 learning rate = None 
 batch size = 80 
 checkpoint = None 
 
-05-05 12:16 
-dataset = resource/dataset/train_480.txt 
+06-02 13:56 
+dataset = resource/dataset/poem_1031k_theme.txt 
 learning rate = None 
 batch size = 80 
 checkpoint = None 
 
-05-05 12:17 
-dataset = resource/dataset/train_480.txt 
+06-02 13:59 
+dataset = resource/dataset/poem_1031k_theme.txt 
 learning rate = None 
 batch size = 80 
 checkpoint = None 
 
-05-05 12:18 
-dataset = resource/dataset/train_480.txt 
+06-02 14:01 
+dataset = resource/dataset/poem_1031k_theme.txt 
 learning rate = None 
 batch size = 80 
 checkpoint = None 
 
-05-05 13:23 
-dataset = resource/dataset/train_480.txt 
+06-02 14:07 
+dataset = resource/dataset/poem_1031k_theme.txt 
 learning rate = None 
 batch size = 80 
 checkpoint = None 
 
-05-05 13:26 
-dataset = resource/dataset/train_480.txt 
+06-02 14:19 
+dataset = resource/dataset/poem_1031k_theme.txt 
 learning rate = None 
 batch size = 80 
 checkpoint = None 
 
-05-05 13:27 
-dataset = resource/dataset/train_480.txt 
+06-02 14:26 
+dataset = resource/dataset/poem_1031k_theme.txt 
 learning rate = None 
 batch size = 80 
 checkpoint = None 
 
-05-05 13:30 
-dataset = resource/dataset/train_480.txt 
+06-02 15:25 
+dataset = resource/dataset/poem_480.txt 
 learning rate = None 
 batch size = 80 
 checkpoint = None 
 
-05-05 13:31 
-dataset = resource/dataset/train_480.txt 
+06-02 15:27 
+dataset = resource/dataset/poem_480.txt 
 learning rate = None 
 batch size = 80 
 checkpoint = None 
 
-05-05 13:32 
-dataset = resource/dataset/train_480.txt 
+06-02 15:30 
+dataset = resource/dataset/poem_480.txt 
+learning rate = None 
+batch size = 80 
+checkpoint = None 
+epoch: 1 | train loss: 124.2 | val loss: 0
+epoch: 2 | train loss: 0.0 | val loss: 0
+epoch: 3 | train loss: 0.0 | val loss: 0
+epoch: 4 | train loss: 0.0 | val loss: 0
+
+06-02 15:32 
+dataset = resource/dataset/poem_480.txt 
+learning rate = None 
+batch size = 80 
+checkpoint = None 
+epoch: 1 | train loss: 124.4 | val loss: 0
+epoch: 2 | train loss: 0.0 | val loss: 0
+epoch: 3 | train loss: 0.0 | val loss: 0
+epoch: 4 | train loss: 0.0 | val loss: 0
+
+06-02 15:34 
+dataset = resource/dataset/poem_480.txt 
+learning rate = None 
+batch size = 80 
+checkpoint = None 
+epoch: 1 | train loss: 123.2 | val loss: 0
+
+06-02 15:37 
+dataset = resource/dataset/poem_480.txt 
+learning rate = None 
+batch size = 80 
+checkpoint = None 
+epoch: 1 | train loss: 125.5 | val loss: 0
+epoch: 2 | train loss: 0.0 | val loss: 0
+epoch: 3 | train loss: 0.0 | val loss: 0
+
+06-02 15:37 
+dataset = resource/dataset/poem_480.txt 
+learning rate = None 
+batch size = 80 
+checkpoint = None 
+epoch: 1 | train loss: 121.487741 | val loss: 0
+epoch: 2 | train loss: 0.032831 | val loss: 0
+epoch: 3 | train loss: 0.024803 | val loss: 0
+epoch: 4 | train loss: 0.020938 | val loss: 0
+
+06-02 15:39 
+dataset = resource/dataset/poem_1031k_theme.txt 
+learning rate = None 
+batch size = 80 
+checkpoint = None 
+epoch: 1 | train loss: 0.06397 | val loss: 0
+
+06-02 16:39 
+dataset = resource/dataset/poem_480.txt 
+learning rate = None 
+batch size = 80 
+checkpoint = None 
+epoch: 1 | train loss: 130.26949 | val loss: 0
+epoch: 2 | train loss: 0.0162 | val loss: 0
+epoch: 3 | train loss: 0.0141 | val loss: 0
+epoch: 4 | train loss: 0.01253 | val loss: 0
+epoch: 5 | train loss: 0.01135 | val loss: 0
+
+06-02 16:55 
+dataset = resource/dataset/poem_480.txt 
 learning rate = None 
 batch size = 80 
 checkpoint = None 
 
-05-05 13:35 
-dataset = resource/dataset/train_480.txt 
+06-02 16:56 
+dataset = resource/dataset/poem_480.txt 
 learning rate = None 
 batch size = 80 
 checkpoint = None 
 
-05-05 13:35 
-dataset = resource/dataset/train_480.txt 
+06-02 16:57 
+dataset = resource/dataset/poem_480.txt 
 learning rate = None 
 batch size = 80 
 checkpoint = None 
+epoch: 1 | train loss: 131.90761 | val loss: 0
+epoch: 2 | train loss: 0.01203 | val loss: 0
+epoch: 3 | train loss: 0.01066 | val loss: 0
+epoch: 4 | train loss: 0.00959 | val loss: 0
+epoch: 5 | train loss: 0.00877 | val loss: 0
 
-05-05 13:35 
-dataset = resource/dataset/train_480.txt 
+06-02 16:58 
+dataset = resource/dataset/poem_480.txt 
 learning rate = None 
 batch size = 80 
 checkpoint = None 
+epoch: 1 | train loss: 350.09089 | val loss: 0
+epoch: 2 | train loss: 296.72704 | val loss: 0
+epoch: 3 | train loss: 268.73297 | val loss: 0
+epoch: 4 | train loss: 265.97867 | val loss: 0
+epoch: 5 | train loss: 264.93064 | val loss: 0
 
-05-05 13:36 
-dataset = resource/dataset/train_480.txt 
+06-02 17:00 
+dataset = resource/dataset/poem_480.txt 
 learning rate = None 
 batch size = 80 
 checkpoint = None 
+epoch: 1 | train loss: 346.71839 | val loss: 0
+epoch: 2 | train loss: 302.2706 | val loss: 0
 
-05-05 13:37 
-dataset = resource/dataset/train_480.txt 
+06-02 17:03 
+dataset = resource/dataset/poem_480.txt 
 learning rate = None 
 batch size = 80 
 checkpoint = None 
+epoch: 1 | train loss: 329.28449 | val loss: 0
+epoch: 2 | train loss: 302.98874 | val loss: 0
+epoch: 3 | train loss: 270.66184 | val loss: 0
+epoch: 4 | train loss: 266.04675 | val loss: 0
+epoch: 5 | train loss: 264.48093 | val loss: 0
 
-05-05 13:37 
-dataset = resource/dataset/train_480.txt 
+06-02 17:04 
+dataset = resource/dataset/poem_480.txt 
 learning rate = None 
 batch size = 80 
 checkpoint = None 
+epoch: 1 | train loss: 344.05648 | val loss: 0
+epoch: 2 | train loss: 297.79209 | val loss: 0
+epoch: 3 | train loss: 269.88385 | val loss: 0
+epoch: 4 | train loss: 265.55095 | val loss: 0
+epoch: 5 | train loss: 264.17497 | val loss: 0
 
-05-05 13:40 
-dataset = resource/dataset/train_480.txt 
+06-02 17:06 
+dataset = resource/dataset/poem_480.txt 
 learning rate = None 
 batch size = 80 
 checkpoint = None 
+epoch: 1 | train loss: 342.20116 | val loss: 0
+epoch: 2 | train loss: 298.67953 | val loss: 0
+epoch: 3 | train loss: 269.58933 | val loss: 0
+epoch: 4 | train loss: 265.73141 | val loss: 0
+epoch: 5 | train loss: 265.49501 | val loss: 0
 
-05-05 13:41 
-dataset = resource/dataset/train_480.txt 
+06-02 17:12 
+dataset = resource/dataset/poem_1031k_theme.txt 
 learning rate = None 
 batch size = 80 
 checkpoint = None 
+epoch: 1 | train loss: 161.11291 | val loss: 0
 
-05-05 13:42 
-dataset = resource/dataset/train_480.txt 
+06-03 00:05 
+dataset = resource/dataset/poem_1031k_theme.txt 
 learning rate = None 
 batch size = 80 
-checkpoint = None 
+checkpoint = ckpt/06-02_Seq2seq_5_epoch=1_loss=161.1.pkl 
+epoch: 2 | train loss: 137.68188 | val loss: 0
+epoch: 3 | train loss: 133.28717 | val loss: 0
+epoch: 4 | train loss: 131.87384 | val loss: 0
+epoch: 5 | train loss: 130.18191 | val loss: 0
+epoch: 6 | train loss: 129.21373 | val loss: 0
+epoch: 7 | train loss: 128.72074 | val loss: 0
+epoch: 8 | train loss: 128.07826 | val loss: 0
+epoch: 9 | train loss: 127.64497 | val loss: 0
+epoch: 10 | train loss: 127.274 | val loss: 0
+epoch: 11 | train loss: 126.797 | val loss: 0
 
-05-05 13:50 
-dataset = resource/dataset/train_480.txt 
+06-04 22:37 
+dataset = resource/dataset/poem_1031k_4x.txt 
 learning rate = None 
 batch size = 80 
 checkpoint = None 
+epoch: 1 | train loss: 146.08816 | val loss: 0
+epoch: 2 | train loss: 136.34341 | val loss: 0
 
-05-05 13:53 
-dataset = resource/dataset/train_480.txt 
-learning rate = None 
-batch size = 80 
-checkpoint = None 
+06-05 23:50
+{'ckpt_path': 'None', 'val_rate': '0.1', 'dataset': 'resource/dataset/poem_1031k_4x.txt', 'batch_size': '80', 'epochs': '2', 'teacher_forcing_ratio': '0.8', 'model': 'Seq2seq_5'}
 
-05-05 13:54 
-dataset = resource/dataset/train_480.txt 
-learning rate = None 
-batch size = 80 
-checkpoint = None 
+06-06 00:07
+{'ckpt_path': 'None', 'val_rate': '0.1', 'dataset': 'resource/dataset/poem_1031k_4x.txt', 'batch_size': '80', 'epochs': '2', 'teacher_forcing_ratio': '0.8', 'model': 'Seq2seq_5'}
 
-05-05 13:56 
-dataset = resource/dataset/train_480.txt 
-learning rate = None 
-batch size = 80 
-checkpoint = None 
+06-06 00:12
+{'ckpt_path': 'None', 'val_rate': '0.1', 'dataset': 'resource/dataset/poem_1031k_4x.txt', 'batch_size': '80', 'epochs': '2', 'teacher_forcing_ratio': '0.8', 'model': 'Seq2seq_5'}
 
-05-05 13:58 
-dataset = resource/dataset/train_480.txt 
-learning rate = None 
-batch size = 80 
-checkpoint = None 
+06-06 00:17
+{'ckpt_path': 'None', 'val_rate': '0.1', 'dataset': 'resource/dataset/poem_1031k_4x.txt', 'batch_size': '80', 'epochs': '2', 'teacher_forcing_ratio': '0.8', 'model': 'Seq2seq_5'}
 
-05-05 14:00 
-dataset = resource/dataset/train_480.txt 
-learning rate = None 
-batch size = 80 
-checkpoint = None 
+06-06 00:24
+{'ckpt_path': 'None', 'val_rate': '0.1', 'dataset': 'resource/dataset/poem_1031k_4x.txt', 'batch_size': '80', 'epochs': '2', 'teacher_forcing_ratio': '0.8', 'model': 'Seq2seq_5'}
+epoch: 1 | train loss: 164.16717 | val loss: 0
 
-05-05 14:01 
-dataset = resource/dataset/train_480.txt 
-learning rate = None 
-batch size = 80 
-checkpoint = None 
 
-05-05 14:02 
-dataset = resource/dataset/train_480.txt 
-learning rate = None 
-batch size = 80 
-checkpoint = None 
+06-06 10:38
+{'ckpt_path': 'ckpt/06-06_Seq2seq_5_epoch=1_loss=164.2.pkl', 'val_rate': '0.1', 'dataset': 'resource/dataset/poem_58k_theme.txt', 'batch_size': '80', 'epochs': '5', 'teacher_forcing_ratio': '0.8', 'model': 'Seq2seq_5'}
+epoch: 2 | train loss: 182.65547 | val loss: 0
+epoch: 3 | train loss: 147.45819 | val loss: 0
+epoch: 4 | train loss: 137.05332 | val loss: 0
+epoch: 5 | train loss: 137.13592 | val loss: 0
+epoch: 6 | train loss: 135.8096 | val loss: 0
 
-05-05 14:05 
-dataset = resource/dataset/train_480.txt 
-learning rate = None 
-batch size = 80 
-checkpoint = None 
 
-05-05 14:06 
-dataset = resource/dataset/train_480.txt 
-learning rate = None 
-batch size = 80 
-checkpoint = None 
+06-07 16:55
+{'ckpt_path': 'None', 'val_rate': '0.1', 'dataset': 'resource/dataset/poem_480.txt', 'batch_size': '80', 'epochs': '3', 'teacher_forcing_ratio': '1', 'model': 'Seq2seq_6'}
+epoch: 1 | train loss: 330.17178 | val loss: 0
+epoch: 2 | train loss: 280.57188 | val loss: 0
+epoch: 3 | train loss: 265.85641 | val loss: 0
 
-05-05 14:08 
-dataset = resource/dataset/train_480.txt 
-learning rate = None 
-batch size = 80 
-checkpoint = None 
 
-05-05 14:09 
-dataset = resource/dataset/train_480.txt 
-learning rate = None 
-batch size = 80 
-checkpoint = None 
+06-07 16:57
+{'ckpt_path': 'None', 'val_rate': '0.1', 'dataset': 'resource/dataset/poem_480.txt', 'batch_size': '80', 'epochs': '3', 'teacher_forcing_ratio': '1', 'model': 'Seq2seq_6'}
+epoch: 1 | train loss: 320.69712 | val loss: 0
+epoch: 2 | train loss: 282.61588 | val loss: 0
+epoch: 3 | train loss: 265.15388 | val loss: 0
 
-05-05 14:10 
-dataset = resource/dataset/train_480.txt 
-learning rate = None 
-batch size = 80 
-checkpoint = None 
 
-05-05 14:11 
-dataset = resource/dataset/train_480.txt 
-learning rate = None 
-batch size = 80 
-checkpoint = None 
+06-07 16:58
+{'ckpt_path': 'None', 'val_rate': '0.1', 'dataset': 'resource/dataset/poem_480.txt', 'batch_size': '80', 'epochs': '3', 'teacher_forcing_ratio': '1', 'model': 'Seq2seq_6'}
+epoch: 1 | train loss: 324.48689 | val loss: 0
+epoch: 2 | train loss: 281.46423 | val loss: 0
+epoch: 3 | train loss: 265.5474 | val loss: 0
 
-05-05 14:12 
-dataset = resource/dataset/train_480.txt 
-learning rate = None 
-batch size = 80 
-checkpoint = None 
 
-05-05 14:12 
-dataset = resource/dataset/train_480.txt 
-learning rate = None 
-batch size = 80 
-checkpoint = None 
+06-07 17:19
+{'ckpt_path': 'None', 'val_rate': '0.1', 'dataset': 'resource/dataset/poem_480.txt', 'batch_size': '80', 'epochs': '3', 'teacher_forcing_ratio': '1', 'model': 'Seq2seq_6'}
 
-05-05 14:14 
-dataset = resource/dataset/train_480.txt 
-learning rate = None 
-batch size = 80 
-checkpoint = None 
 
-05-05 14:15 
-dataset = resource/dataset/train_480.txt 
-learning rate = None 
-batch size = 80 
-checkpoint = None 
+06-07 17:21
+{'ckpt_path': 'None', 'val_rate': '0.1', 'dataset': 'resource/dataset/poem_480.txt', 'batch_size': '80', 'epochs': '3', 'teacher_forcing_ratio': '1', 'model': 'Seq2seq_6'}
 
-05-05 14:15 
-dataset = resource/dataset/train_480.txt 
-learning rate = None 
-batch size = 80 
-checkpoint = None 
 
-05-05 14:20 
-dataset = resource/dataset/train_480.txt 
-learning rate = None 
-batch size = 80 
-checkpoint = None 
-epoch: 1 | train loss: 468.4 | val loss: 0
+06-07 17:23
+{'ckpt_path': 'None', 'val_rate': '0.1', 'dataset': 'resource/dataset/poem_480.txt', 'batch_size': '80', 'epochs': '3', 'teacher_forcing_ratio': '1', 'model': 'Seq2seq_6'}
 
-05-05 14:38 
-dataset = resource/dataset/train_480.txt 
-learning rate = None 
-batch size = 80 
-checkpoint = None 
-epoch: 1 | train loss: 474.6 | val loss: 0
-epoch: 2 | train loss: 929.8 | val loss: 0
-epoch: 3 | train loss: 1306.5 | val loss: 0
+
+06-07 17:52
+{'ckpt_path': 'None', 'val_rate': '0.1', 'dataset': 'resource/dataset/poem_480.txt', 'batch_size': '80', 'epochs': '3', 'teacher_forcing_ratio': '1', 'model': 'Seq2seq_6'}
+
+
+06-07 17:56
+{'ckpt_path': 'None', 'val_rate': '0.1', 'dataset': 'resource/dataset/poem_480.txt', 'batch_size': '80', 'epochs': '3', 'teacher_forcing_ratio': '1', 'model': 'Seq2seq_6'}
+
+
+06-07 17:58
+{'ckpt_path': 'None', 'val_rate': '0.1', 'dataset': 'resource/dataset/poem_480.txt', 'batch_size': '80', 'epochs': '3', 'teacher_forcing_ratio': '1', 'model': 'Seq2seq_6'}
+
+
+06-07 17:59
+{'ckpt_path': 'None', 'val_rate': '0.1', 'dataset': 'resource/dataset/poem_480.txt', 'batch_size': '80', 'epochs': '3', 'teacher_forcing_ratio': '1', 'model': 'Seq2seq_6'}
+
+
+06-07 18:07
+{'ckpt_path': 'None', 'val_rate': '0.1', 'dataset': 'resource/dataset/poem_480.txt', 'batch_size': '80', 'epochs': '3', 'teacher_forcing_ratio': '1', 'model': 'Seq2seq_6'}
+
+
+06-07 18:08
+{'ckpt_path': 'None', 'val_rate': '0.1', 'dataset': 'resource/dataset/poem_480.txt', 'batch_size': '80', 'epochs': '3', 'teacher_forcing_ratio': '1', 'model': 'Seq2seq_6'}
+
+
+06-07 18:15
+{'ckpt_path': 'None', 'val_rate': '0.1', 'dataset': 'resource/dataset/poem_480.txt', 'batch_size': '80', 'epochs': '3', 'teacher_forcing_ratio': '1', 'model': 'Seq2seq_6'}
+
+
+06-07 18:16
+{'ckpt_path': 'None', 'val_rate': '0.1', 'dataset': 'resource/dataset/poem_480.txt', 'batch_size': '80', 'epochs': '3', 'teacher_forcing_ratio': '1', 'model': 'Seq2seq_6'}
+
+
+06-07 18:18
+{'ckpt_path': 'None', 'val_rate': '0.1', 'dataset': 'resource/dataset/poem_480.txt', 'batch_size': '80', 'epochs': '3', 'teacher_forcing_ratio': '1', 'model': 'Seq2seq_6'}
+
+
+06-07 18:25
+{'ckpt_path': 'None', 'val_rate': '0.1', 'dataset': 'resource/dataset/poem_480.txt', 'batch_size': '80', 'epochs': '3', 'teacher_forcing_ratio': '1', 'model': 'Seq2seq_6'}
+
+
+06-07 18:25
+{'ckpt_path': 'None', 'val_rate': '0.1', 'dataset': 'resource/dataset/poem_480.txt', 'batch_size': '80', 'epochs': '3', 'teacher_forcing_ratio': '1', 'model': 'Seq2seq_6'}
+
+
+06-08 08:45
+{'ckpt_path': 'None', 'val_rate': '0.1', 'dataset': 'resource/dataset/poem_480.txt', 'batch_size': '80', 'epochs': '3', 'teacher_forcing_ratio': '1', 'model': 'Seq2seq_6'}
+
+
+06-08 08:55
+{'ckpt_path': 'None', 'val_rate': '0.1', 'dataset': 'resource/dataset/poem_480.txt', 'batch_size': '80', 'epochs': '3', 'teacher_forcing_ratio': '1', 'model': 'Seq2seq_6'}
+
+
+06-08 09:00
+{'ckpt_path': 'None', 'val_rate': '0.1', 'dataset': 'resource/dataset/poem_480.txt', 'batch_size': '80', 'epochs': '3', 'teacher_forcing_ratio': '1', 'model': 'Seq2seq_6'}
+
+
+06-08 09:15
+{'ckpt_path': 'None', 'val_rate': '0.1', 'dataset': 'resource/dataset/poem_480.txt', 'batch_size': '80', 'epochs': '3', 'teacher_forcing_ratio': '1', 'model': 'Seq2seq_6'}
+
+
+06-08 09:27
+{'ckpt_path': 'None', 'val_rate': '0.1', 'dataset': 'resource/dataset/poem_480.txt', 'batch_size': '80', 'epochs': '3', 'teacher_forcing_ratio': '1', 'model': 'Seq2seq_6'}
+
+
+06-08 09:28
+{'ckpt_path': 'None', 'val_rate': '0.1', 'dataset': 'resource/dataset/poem_480.txt', 'batch_size': '80', 'epochs': '3', 'teacher_forcing_ratio': '1', 'model': 'Seq2seq_6'}
+
+
+06-08 09:30
+{'ckpt_path': 'None', 'val_rate': '0.1', 'dataset': 'resource/dataset/poem_480.txt', 'batch_size': '80', 'epochs': '3', 'teacher_forcing_ratio': '1', 'model': 'Seq2seq_6'}
+
+
+06-08 09:59
+{'ckpt_path': 'None', 'val_rate': '0.1', 'dataset': 'resource/dataset/poem_480.txt', 'batch_size': '80', 'epochs': '3', 'teacher_forcing_ratio': '1', 'model': 'Seq2seq_6'}
+
+
+06-08 10:03
+{'ckpt_path': 'None', 'val_rate': '0.1', 'dataset': 'resource/dataset/poem_480.txt', 'batch_size': '80', 'epochs': '3', 'teacher_forcing_ratio': '1', 'model': 'Seq2seq_6'}
+
+
+06-08 10:08
+{'ckpt_path': 'None', 'val_rate': '0.1', 'dataset': 'resource/dataset/poem_480.txt', 'batch_size': '80', 'epochs': '3', 'teacher_forcing_ratio': '1', 'model': 'Seq2seq_6'}
+
+
+06-08 10:29
+{'ckpt_path': 'None', 'val_rate': '0.1', 'dataset': 'resource/dataset/poem_480.txt', 'batch_size': '80', 'epochs': '3', 'teacher_forcing_ratio': '1', 'model': 'Seq2seq_6'}
+
+
+06-08 10:32
+{'ckpt_path': 'None', 'val_rate': '0.1', 'dataset': 'resource/dataset/poem_480.txt', 'batch_size': '80', 'epochs': '3', 'teacher_forcing_ratio': '1', 'model': 'Seq2seq_6'}
+
+
+06-08 18:38
+{'ckpt_path': 'None', 'val_rate': '0.1', 'dataset': 'resource/dataset/poem_480.txt', 'batch_size': '80', 'epochs': '3', 'teacher_forcing_ratio': '1', 'model': 'Seq2seq_6'}
+
+
+06-08 18:53
+{'ckpt_path': 'None', 'val_rate': '0.1', 'dataset': 'resource/dataset/poem_480.txt', 'batch_size': '80', 'epochs': '3', 'teacher_forcing_ratio': '1', 'model': 'Seq2seq_6'}
+
+
+06-09 15:16
+{'ckpt_path': 'None', 'val_rate': '0.1', 'dataset': 'resource/dataset/poem_480.txt', 'batch_size': '80', 'epochs': '3', 'teacher_forcing_ratio': '1', 'model': 'Seq2seq_6'}
+
+
+06-09 22:06
+{'ckpt_path': 'None', 'val_rate': '0.1', 'dataset': 'resource/dataset/poem_480.txt', 'batch_size': '80', 'epochs': '3', 'teacher_forcing_ratio': '1', 'model': 'Seq2seq_6'}
+
+
+06-09 22:11
+{'ckpt_path': 'None', 'val_rate': '0.1', 'dataset': 'resource/dataset/poem_480.txt', 'batch_size': '80', 'epochs': '3', 'teacher_forcing_ratio': '1', 'model': 'Seq2seq_6'}
+
+
+06-09 22:21
+{'ckpt_path': 'None', 'val_rate': '0.1', 'dataset': 'resource/dataset/poem_480.txt', 'batch_size': '80', 'epochs': '3', 'teacher_forcing_ratio': '1', 'model': 'Seq2seq_6'}
+
+
+06-10 00:51
+{'ckpt_path': 'None', 'val_rate': '0.1', 'dataset': 'resource/dataset/poem_480.txt', 'batch_size': '80', 'epochs': '3', 'teacher_forcing_ratio': '1', 'model': 'Seq2seq_6'}
+
+
+06-10 00:52
+{'ckpt_path': 'None', 'val_rate': '0.1', 'dataset': 'resource/dataset/poem_480.txt', 'batch_size': '80', 'epochs': '3', 'teacher_forcing_ratio': '1', 'model': 'Seq2seq_6'}
+
+
+06-10 01:09
+{'ckpt_path': 'None', 'val_rate': '0.1', 'dataset': 'resource/dataset/poem_480.txt', 'batch_size': '80', 'epochs': '3', 'teacher_forcing_ratio': '1', 'model': 'Seq2seq_6'}
+
+
+06-10 01:12
+{'ckpt_path': 'None', 'val_rate': '0.1', 'dataset': 'resource/dataset/poem_480.txt', 'batch_size': '80', 'epochs': '3', 'teacher_forcing_ratio': '1', 'model': 'Seq2seq_6'}
+
+
+06-10 01:13
+{'ckpt_path': 'None', 'val_rate': '0.1', 'dataset': 'resource/dataset/poem_480.txt', 'batch_size': '80', 'epochs': '3', 'teacher_forcing_ratio': '1', 'model': 'Seq2seq_6'}
+
+
+06-10 01:18
+{'ckpt_path': 'None', 'val_rate': '0.1', 'dataset': 'resource/dataset/poem_480.txt', 'batch_size': '80', 'epochs': '3', 'teacher_forcing_ratio': '1', 'model': 'Seq2seq_6'}
+
+
+06-10 01:19
+{'ckpt_path': 'None', 'val_rate': '0.1', 'dataset': 'resource/dataset/poem_480.txt', 'batch_size': '80', 'epochs': '3', 'teacher_forcing_ratio': '1', 'model': 'Seq2seq_6'}
+
+
+06-10 01:20
+{'ckpt_path': 'None', 'val_rate': '0.1', 'dataset': 'resource/dataset/poem_480.txt', 'batch_size': '80', 'epochs': '3', 'teacher_forcing_ratio': '1', 'model': 'Seq2seq_6'}
+
+
+06-10 02:30
+{'ckpt_path': 'None', 'val_rate': '0.1', 'dataset': 'resource/dataset/poem_480.txt', 'batch_size': '80', 'epochs': '3', 'teacher_forcing_ratio': '1', 'model': 'Seq2seq_6'}
+
+
+06-10 02:31
+{'ckpt_path': 'None', 'val_rate': '0.1', 'dataset': 'resource/dataset/poem_480.txt', 'batch_size': '80', 'epochs': '3', 'teacher_forcing_ratio': '1', 'model': 'Seq2seq_6'}
+
+
+06-10 02:37
+{'ckpt_path': 'None', 'val_rate': '0.1', 'dataset': 'resource/dataset/poem_480.txt', 'batch_size': '80', 'epochs': '3', 'teacher_forcing_ratio': '1', 'model': 'Seq2seq_6'}
+
+
+06-10 02:39
+{'ckpt_path': 'None', 'val_rate': '0.1', 'dataset': 'resource/dataset/poem_480.txt', 'batch_size': '80', 'epochs': '3', 'teacher_forcing_ratio': '1', 'model': 'Seq2seq_6'}
+
+
+06-10 02:56
+{'ckpt_path': 'None', 'val_rate': '0.1', 'dataset': 'resource/dataset/poem_480.txt', 'batch_size': '80', 'epochs': '3', 'teacher_forcing_ratio': '1', 'model': 'Seq2seq_7'}
+
+
+06-10 02:57
+{'ckpt_path': 'None', 'val_rate': '0.1', 'dataset': 'resource/dataset/poem_480.txt', 'batch_size': '80', 'epochs': '3', 'teacher_forcing_ratio': '1', 'model': 'Seq2seq_7'}
+
+
+06-10 03:14
+{'ckpt_path': 'None', 'val_rate': '0.1', 'dataset': 'resource/dataset/poem_480.txt', 'batch_size': '80', 'epochs': '3', 'teacher_forcing_ratio': '1', 'model': 'Seq2seq_7'}
+
+
+06-10 03:16
+{'ckpt_path': 'None', 'val_rate': '0.1', 'dataset': 'resource/dataset/poem_480.txt', 'batch_size': '80', 'epochs': '3', 'teacher_forcing_ratio': '1', 'model': 'Seq2seq_7'}
+
+
+06-10 03:17
+{'ckpt_path': 'None', 'val_rate': '0.1', 'dataset': 'resource/dataset/poem_480.txt', 'batch_size': '80', 'epochs': '3', 'teacher_forcing_ratio': '1', 'model': 'Seq2seq_7'}
+
+
+06-10 03:21
+{'ckpt_path': 'None', 'val_rate': '0.1', 'dataset': 'resource/dataset/poem_480.txt', 'batch_size': '80', 'epochs': '3', 'teacher_forcing_ratio': '1', 'model': 'Seq2seq_7'}
+
+
+06-10 03:28
+{'ckpt_path': 'None', 'val_rate': '0.1', 'dataset': 'resource/dataset/poem_480.txt', 'batch_size': '80', 'epochs': '3', 'teacher_forcing_ratio': '1', 'model': 'Seq2seq_7'}
+
+
+06-10 03:29
+{'ckpt_path': 'None', 'val_rate': '0.1', 'dataset': 'resource/dataset/poem_480.txt', 'batch_size': '80', 'epochs': '3', 'teacher_forcing_ratio': '1', 'model': 'Seq2seq_7'}
+
+
+06-10 03:35
+{'ckpt_path': 'None', 'val_rate': '0.1', 'dataset': 'resource/dataset/poem_480.txt', 'batch_size': '80', 'epochs': '3', 'teacher_forcing_ratio': '1', 'model': 'Seq2seq_5'}
+
+
+06-10 04:32
+{'ckpt_path': 'None', 'val_rate': '0.1', 'dataset': 'resource/dataset/poem_480.txt', 'batch_size': '80', 'epochs': '3', 'teacher_forcing_ratio': '1', 'model': 'Seq2seq_7'}
+
+
+06-10 04:37
+{'ckpt_path': 'None', 'val_rate': '0.1', 'dataset': 'resource/dataset/poem_480.txt', 'batch_size': '80', 'epochs': '3', 'teacher_forcing_ratio': '1', 'model': 'Seq2seq_7'}
+
+
+06-10 04:38
+{'ckpt_path': 'None', 'val_rate': '0.1', 'dataset': 'resource/dataset/poem_480.txt', 'batch_size': '80', 'epochs': '3', 'teacher_forcing_ratio': '1', 'model': 'Seq2seq_7'}
+
+
+06-10 04:48
+{'ckpt_path': 'None', 'val_rate': '0.1', 'dataset': 'resource/dataset/poem_480.txt', 'batch_size': '80', 'epochs': '3', 'teacher_forcing_ratio': '1', 'model': 'Seq2seq_7'}
+
+
+06-10 04:50
+{'ckpt_path': 'None', 'val_rate': '0.1', 'dataset': 'resource/dataset/poem_480.txt', 'batch_size': '80', 'epochs': '3', 'teacher_forcing_ratio': '1', 'model': 'Seq2seq_7'}
+
+
+06-10 09:57
+{'ckpt_path': 'None', 'val_rate': '0.1', 'dataset': 'resource/dataset/poem_480.txt', 'batch_size': '80', 'epochs': '3', 'teacher_forcing_ratio': '1', 'model': 'Seq2seq_7'}
+
+
+06-10 10:03
+{'ckpt_path': 'None', 'val_rate': '0.1', 'dataset': 'resource/dataset/poem_480.txt', 'batch_size': '80', 'epochs': '3', 'teacher_forcing_ratio': '1', 'model': 'Seq2seq_7'}
+
+
+06-10 10:08
+{'ckpt_path': 'None', 'val_rate': '0.1', 'dataset': 'resource/dataset/poem_480.txt', 'batch_size': '80', 'epochs': '3', 'teacher_forcing_ratio': '1', 'model': 'Seq2seq_7'}
+
+
+06-10 10:11
+{'ckpt_path': 'None', 'val_rate': '0.1', 'dataset': 'resource/dataset/poem_480.txt', 'batch_size': '80', 'epochs': '3', 'teacher_forcing_ratio': '1', 'model': 'Seq2seq_7'}
+
+
+06-10 10:18
+{'ckpt_path': 'None', 'val_rate': '0.1', 'dataset': 'resource/dataset/poem_480.txt', 'batch_size': '80', 'epochs': '3', 'teacher_forcing_ratio': '1', 'model': 'Seq2seq_7'}
+
+
+06-10 10:22
+{'ckpt_path': 'None', 'val_rate': '0.1', 'dataset': 'resource/dataset/poem_480.txt', 'batch_size': '80', 'epochs': '3', 'teacher_forcing_ratio': '1', 'model': 'Seq2seq_7'}
+
+
+06-10 10:22
+{'ckpt_path': 'None', 'val_rate': '0.1', 'dataset': 'resource/dataset/poem_480.txt', 'batch_size': '80', 'epochs': '3', 'teacher_forcing_ratio': '1', 'model': 'Seq2seq_7'}
+
+
+06-10 10:27
+{'ckpt_path': 'None', 'val_rate': '0.1', 'dataset': 'resource/dataset/poem_480.txt', 'batch_size': '80', 'epochs': '3', 'teacher_forcing_ratio': '1', 'model': 'Seq2seq_7'}
+
+
+06-10 10:35
+{'ckpt_path': 'None', 'val_rate': '0.1', 'dataset': 'resource/dataset/poem_480.txt', 'batch_size': '80', 'epochs': '3', 'teacher_forcing_ratio': '1', 'model': 'Seq2seq_7'}
+
+
+06-10 10:38
+{'ckpt_path': 'None', 'val_rate': '0.1', 'dataset': 'resource/dataset/poem_480.txt', 'batch_size': '80', 'epochs': '3', 'teacher_forcing_ratio': '1', 'model': 'Seq2seq_7'}
+
+
+06-10 10:40
+{'ckpt_path': 'None', 'val_rate': '0.1', 'dataset': 'resource/dataset/poem_480.txt', 'batch_size': '80', 'epochs': '3', 'teacher_forcing_ratio': '1', 'model': 'Seq2seq_7'}
+
+
+06-10 10:51
+{'ckpt_path': 'None', 'val_rate': '0.1', 'dataset': 'resource/dataset/poem_480.txt', 'batch_size': '80', 'epochs': '3', 'teacher_forcing_ratio': '1', 'model': 'Seq2seq_7'}
+
+
+06-10 10:54
+{'ckpt_path': 'None', 'val_rate': '0.1', 'dataset': 'resource/dataset/poem_480.txt', 'batch_size': '80', 'epochs': '3', 'teacher_forcing_ratio': '1', 'model': 'Seq2seq_7'}
+
+
+06-10 11:05
+{'ckpt_path': 'None', 'val_rate': '0.1', 'dataset': 'resource/dataset/poem_480.txt', 'batch_size': '80', 'epochs': '3', 'teacher_forcing_ratio': '1', 'model': 'Seq2seq_7'}
+
+
+06-10 11:08
+{'ckpt_path': 'None', 'val_rate': '0.1', 'dataset': 'resource/dataset/poem_480.txt', 'batch_size': '80', 'epochs': '3', 'teacher_forcing_ratio': '1', 'model': 'Seq2seq_7'}
+
+
+06-10 11:10
+{'ckpt_path': 'None', 'val_rate': '0.1', 'dataset': 'resource/dataset/poem_480.txt', 'batch_size': '80', 'epochs': '3', 'teacher_forcing_ratio': '1', 'model': 'Seq2seq_7'}
+
+
+06-10 12:18
+{'ckpt_path': 'None', 'val_rate': '0.1', 'dataset': 'resource/dataset/poem_480.txt', 'batch_size': '80', 'epochs': '3', 'teacher_forcing_ratio': '1', 'model': 'Seq2seq_7'}
+
+
+06-10 12:19
+{'ckpt_path': 'None', 'val_rate': '0.1', 'dataset': 'resource/dataset/poem_480.txt', 'batch_size': '80', 'epochs': '3', 'teacher_forcing_ratio': '1', 'model': 'Seq2seq_7'}
+
+
+06-10 12:26
+{'ckpt_path': 'None', 'val_rate': '0.1', 'dataset': 'resource/dataset/poem_480.txt', 'batch_size': '80', 'epochs': '3', 'teacher_forcing_ratio': '1', 'model': 'Seq2seq_7'}
+
+
+06-10 12:27
+{'ckpt_path': 'None', 'val_rate': '0.1', 'dataset': 'resource/dataset/poem_480.txt', 'batch_size': '80', 'epochs': '3', 'teacher_forcing_ratio': '1', 'model': 'Seq2seq_7'}
+
+
+06-10 12:31
+{'ckpt_path': 'None', 'val_rate': '0.1', 'dataset': 'resource/dataset/poem_480.txt', 'batch_size': '80', 'epochs': '3', 'teacher_forcing_ratio': '1', 'model': 'Seq2seq_7'}
+
+
+06-10 12:34
+{'ckpt_path': 'None', 'val_rate': '0.1', 'dataset': 'resource/dataset/poem_480.txt', 'batch_size': '80', 'epochs': '3', 'teacher_forcing_ratio': '1', 'model': 'Seq2seq_7'}
+
+
+06-10 12:35
+{'ckpt_path': 'None', 'val_rate': '0.1', 'dataset': 'resource/dataset/poem_480.txt', 'batch_size': '80', 'epochs': '3', 'teacher_forcing_ratio': '1', 'model': 'Seq2seq_7'}
+
+
+06-10 12:38
+{'ckpt_path': 'None', 'val_rate': '0.1', 'dataset': 'resource/dataset/poem_480.txt', 'batch_size': '80', 'epochs': '3', 'teacher_forcing_ratio': '1', 'model': 'Seq2seq_7'}
+epoch: 1 | train loss: 326.82309 | val loss: 0
+
+
+06-10 12:45
+{'ckpt_path': 'None', 'val_rate': '0.1', 'dataset': 'resource/dataset/poem_480.txt', 'batch_size': '80', 'epochs': '3', 'teacher_forcing_ratio': '1', 'model': 'Seq2seq_7'}
+
+
+06-10 12:48
+{'ckpt_path': 'None', 'val_rate': '0.1', 'dataset': 'resource/dataset/poem_480.txt', 'batch_size': '80', 'epochs': '3', 'teacher_forcing_ratio': '1', 'model': 'Seq2seq_7'}
+epoch: 1 | train loss: 327.69332 | val loss: 0
+
+
+06-10 13:03
+{'ckpt_path': 'None', 'val_rate': '0.1', 'dataset': 'resource/dataset/poem_1031k_theme.txt', 'batch_size': '80', 'epochs': '5', 'teacher_forcing_ratio': '1', 'model': 'Seq2seq_7'}
+
+
+06-10 13:08
+{'ckpt_path': 'None', 'val_rate': '0.1', 'dataset': 'resource/dataset/poem_1031k_theme.txt', 'batch_size': '80', 'epochs': '5', 'teacher_forcing_ratio': '1', 'model': 'Seq2seq_7'}
+
+
+06-10 13:11
+{'ckpt_path': 'None', 'val_rate': '0.1', 'dataset': 'resource/dataset/poem_1031k_theme.txt', 'batch_size': '80', 'epochs': '5', 'teacher_forcing_ratio': '1', 'model': 'Seq2seq_7'}
+
+
+06-10 13:12
+{'ckpt_path': 'None', 'val_rate': '0.1', 'dataset': 'resource/dataset/poem_1031k_theme.txt', 'batch_size': '80', 'epochs': '5', 'teacher_forcing_ratio': '0.8', 'model': 'Seq2seq_7'}
+
+
+06-10 13:14
+{'ckpt_path': 'None', 'val_rate': '0.1', 'dataset': 'resource/dataset/poem_1031k_theme.txt', 'batch_size': '80', 'epochs': '5', 'teacher_forcing_ratio': '0.8', 'model': 'Seq2seq_7'}
+epoch: 1 | train loss: 183.92026 | val loss: 0
+epoch: 2 | train loss: 157.73389 | val loss: 0
+epoch: 3 | train loss: 152.37763 | val loss: 0
+
+
+06-10 04:19
+{'ckpt_path': 'None', 'val_rate': '0.1', 'dataset': 'resource/dataset/poem_1031k_theme.txt', 'batch_size': '80', 'epochs': '5', 'teacher_forcing_ratio': '0.8', 'model': 'Seq2seq_7'}

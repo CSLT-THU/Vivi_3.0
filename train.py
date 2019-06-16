@@ -7,6 +7,7 @@ import math
 import numpy as np
 import argparse
 import numpy as np
+import tqdm
 
 import torch
 import torch.nn as nn
@@ -18,7 +19,7 @@ import configparser
 import importlib
 
 from data_utils import read_train_data, read_train_data_2, read_test_data, split_dataset, sort_batch_data
-from loss.loss_logs import save_loss, write_log_head, write_log_loss
+# from loss.loss_logs import save_loss, write_log_head, write_log_loss
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
@@ -74,15 +75,14 @@ def train(train_data, val_data, model, optimizer, batch_size, epochs, last_epoch
             # batch_x: B*T tensor
             
             # 最后一个batch数据量可能不足batch size，去掉不用。
-            if len(data[0]) != batch_size:
-                continue
+            # if len(data[0]) != batch_size:
+            #     continue
             
             step += 1
             if step % 100 == 0: # 临时
                 print('step:', step)
 
-            loss = train_batch(batch_size, data, model,
-                               optimizer, criterion, teacher_forcing_ratio)
+            loss = train_batch(batch_size, data, model, optimizer, criterion, teacher_forcing_ratio)
             loss_total += loss
 
         loss_avg = round((loss_total / step), 5)
@@ -100,8 +100,7 @@ def train(train_data, val_data, model, optimizer, batch_size, epochs, last_epoch
         plot_losses.append(loss_avg)
         plot_epoches.append(epoch)
         with open('loss/loss_log', 'a') as f:
-            f.write('epoch: {0} | train loss: {1} | val loss: {2}\n'.format(
-                str(epoch), str(loss_avg), str(val_loss_avg)))
+            f.write('epoch: {0} | train loss: {1} | val loss: {2}\n'.format(str(epoch), str(loss_avg), str(val_loss_avg)))
         dic = {'plot_epoches': plot_epoches, 'plot_losses': plot_losses, 'plot_val_losses': plot_val_losses, 'model_param': model_param, 'train_param': train_param}
         np.save('loss/loss.npy', dic)  # 每次重写会覆盖
 
@@ -109,8 +108,7 @@ def train(train_data, val_data, model, optimizer, batch_size, epochs, last_epoch
         print('save model')
         t = time.strftime("%m-%d", time.localtime())  # "%m-%d-%H:%M"
         state = {'model': model.state_dict(), 'train_param':train_param, 'model_param': model_param, 'epoch': epoch}
-        torch.save(state, 'ckpt/' + str(t) + '_' + model_param['model_name'] + '_epoch=' + \
-                   str(epoch) + '_loss=%.1f' % loss_avg + '.pkl')
+        torch.save(state, 'ckpt/' + str(t) + '_' + model_param['model_name'] + '_epoch=' + str(epoch) + '_loss=%.1f' % loss_avg + '.pkl')
 
 
 def main():
@@ -128,7 +126,7 @@ def main():
     parser.add_argument('--val_rate', type=float, default=0.1)
     parser.add_argument('--batch_size', type=int, default=80)
     parser.add_argument('--teacher_forcing_ratio', type=float, default=0.8)
-    parser.add_argument('--model_name', type=str, default='Seq2seq')
+    parser.add_argument('--model_name', type=str, default='Transformer')
     parser.add_argument('--note', type=str, default='')
     
     args = parser.parse_args()
@@ -176,15 +174,19 @@ def main():
     
     # 变成小批
     train_data = Data.DataLoader(
-        dataset=train_Dataset,  # torch TensorDataset format
-        batch_size=batch_size,  # mini batch size
-        shuffle=True,  # 要不要打乱数据 (打乱比较好)
+        dataset=train_Dataset,  
+        batch_size=batch_size, 
+        shuffle=True,  
+        drop_last=True, # Jun16
+        collate_fn=PoetryData.paired_collate_fn # 目前仅适用于transformer
         # num_workers=2,  # 多线程来读数据，提取xy的时候几个数据一起提取
     )
     val_data = Data.DataLoader(
         dataset=val_Dataset,  
         batch_size=batch_size,  
-        shuffle=True,  
+        shuffle=True,
+        drop_last=True, # Jun16
+        collate_fn=PoetryData.paired_collate_fn
         # num_workers=2,  
     )
 

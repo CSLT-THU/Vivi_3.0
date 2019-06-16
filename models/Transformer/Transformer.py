@@ -13,14 +13,28 @@ from word_emb import emb_size, word2id, id2word, emb, word2count, vocab_size, SO
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
 class Transformer(nn.Module):
-    ''' A sequence to sequence model with attention mechanism. '''
-
     def __init__(
             self, model_param):
         super(Transformer, self).__init__()
         
+        # print('model_param:', model_param)
         n_src_vocab = vocab_size  # src_vocab_size
         n_tgt_vocab = vocab_size  # tgt_vocab_size
+
+        # Jun16
+        # input_max_len = 41
+        # target_max_len = 42
+        # tgt_emb_prj_weight_sharing = model_param.proj_share_weight
+        # emb_src_tgt_weight_sharing = model_param.embs_share_weight
+        # d_k = model_param.d_k# 64,
+        # d_v = model_param.d_v # 64,
+        # d_model = model_param.d_model  # 200, # embed size
+        # d_word_vec = model_param.d_model  # 200, # 
+        # d_inner = model_param.d_inner_hid  # 2048,
+        # n_layers = model_param.n_layers # 6,
+        # n_head = model_param.n_head # 8,
+        # dropout = model_param.dropout # 0.1
+
         input_max_len = int(model_param['input_max_len']) # ?待定
         target_max_len = int(model_param['target_max_len'])
         tgt_emb_prj_weight_sharing = True if model_param['proj_share_weight']=='True' else False # True
@@ -71,9 +85,10 @@ class Transformer(nn.Module):
         src_seq, src_pos, tgt_seq, tgt_pos = data
 
         # test
-        print('src:', [id2word[str(x.to(device).numpy())] for x in src_seq[0]])
-        print('tgt:', [id2word[str(x.to(device).numpy())] for x in tgt_seq[0]])
+        # print('src:', [id2word[str(x.to(device).numpy())] for x in src_seq[0]])
+        # print('tgt:', [id2word[str(x.to(device).numpy())] for x in tgt_seq[0]])
 
+        # TODO: 没有用scheduled sampling
         enc_output, *_ = self.encoder(src_seq, src_pos)
         dec_output, *_ = self.decoder(tgt_seq, tgt_pos, src_seq, enc_output)
         seq_logit = self.tgt_word_prj(dec_output) * self.x_logit_scale
@@ -84,8 +99,8 @@ class Transformer(nn.Module):
         gold = gold.contiguous().view(-1)
 
         # test
-        print('pred:', [id2word[str(x.to(device).numpy())] for x in torch.argmax(pred, dim=1)])
-        print('gold:', [id2word[str(x.to(device).numpy())] for x in gold])
+        # print('pred:', [id2word[str(x.to(device).numpy())] for x in torch.argmax(pred, dim=1)])
+        # print('gold:', [id2word[str(x.to(device).numpy())] for x in gold])
 
         loss = criterion(pred, gold)
         loss = loss * len(gold) / batch_size
@@ -93,20 +108,36 @@ class Transformer(nn.Module):
         return loss
     
     def predict(self, data, cangtou, predict_param):
-        # TODO: This is not final
         with torch.no_grad():
             src_seq, src_pos = data
 
             # test
-            print('src:', [id2word[str(x.to(device).numpy())] for x in src_seq[0]])
+            # print('src:', [id2word[str(x.to(device).numpy())] for x in src_seq[0]])
 
             enc_output, *_ = self.encoder(src_seq, src_pos)
-            dec_output, *_ = self.decoder(dec_seq, dec_pos, src_seq, enc_output)
-            dec_output = dec_output[:, -1, :]  # Pick the last step: (bh * bm) * d_h
-            word_prob = F.log_softmax(self.model.tgt_word_prj(dec_output), dim=1)
-             
+            
+            dec_seq = torch.tensor([[2]], device=device) # (beam size, decoded len) # 不要用SOS_token, 0会导致decoder_output为nan. 此处使用/
+            dec_pos = torch.tensor([[1]], device=device)
+            
+            sen_len = 7
+            sen_num = 4
+            decoded_words = []
+            
+            for i in range(sen_num):
+                for j in range(sen_len):
+                    # predict_word
+                    dec_output, *_ = self.decoder(dec_seq, dec_pos, src_seq, enc_output)
+                    dec_output = dec_output[:, -1, :]  # Pick the last step: (bh * bm) * d_h
+                    word_prob = F.log_softmax(self.tgt_word_prj(dec_output), dim=1) # (1, beam size, 4777)
+                    top_id, top_word = get_next_word(word_prob.data, decoded_words) # 应该是(1, 4777)
+                    if top_word == 'N':
+                        print('cannot meet requirements')
+                        break
+                    decoded_words.append(top_word)
+                    dec_seq = torch.tensor([[word2id[word] for word in decoded_words]], dtype=torch.long, device=device)
+                    dec_pos = torch.tensor([[k+1 for k in range(len(decoded_words))]], dtype=torch.long, device=device)
 
             # test
-            print('pred:', [id2word[str(x.to(device).numpy())] for x in torch.argmax(pred, dim=1)])
+            # print('pred:', [id2word[str(x.to(device).numpy())] for x in torch.argmax(decoded_words, dim=1)])
 
-        return pred
+        return decoded_words

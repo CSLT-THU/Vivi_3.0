@@ -87,7 +87,7 @@ def read_train_data_2(file):
 def line2ids(line): # for testset
     input_words = line.split(' ')
     input_ids = [word2id.get(word, vocab_size - 1) for word in input_words]  # default = 4776 '-' ?
-    input_ids.insert(0, SOS_token)
+    # input_ids.insert(0, SOS_token) # Jun16
     input_ids.append(EOS_token)
     return input_ids
 

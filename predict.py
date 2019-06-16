@@ -63,12 +63,14 @@ def main():
     # predict param
     parser = argparse.ArgumentParser(description='Vivi')
 
-    parser.add_argument('--model_name', type=str, default='Seq2seq_5')
-    parser.add_argument('--ckpt_path', type=str, default='ckpt/06-05_Seq2seq_5_epoch=1_loss=146.1.pkl')
+    parser.add_argument('--model_name', type=str, default='Transformer')
+    parser.add_argument('--ckpt_path', type=str, default='ckpt/06-16_Transformer_epoch=1_loss=340.1.pkl')
+    # parser.add_argument('--model_name', type=str, default='Seq2seq_7')
+    # parser.add_argument('--ckpt_path', type=str, default='ckpt/06-10_Seq2seq_7_epoch=2_loss=157.7.pkl')
     parser.add_argument('--cangtou', type=str, default='')
     parser.add_argument('--keywords', type=str, default='')
-    parser.add_argument('--test_set', type=str, default='')
-    parser.add_argument('--eval_set', type=str, default='resource/dataset/test_1031k.txt')
+    parser.add_argument('--test_set', type=str, default='resource/dataset/testset.txt')
+    parser.add_argument('--eval_set', type=str, default='')
     parser.add_argument('--use_planning', type=bool, default=False)
     parser.add_argument('--bleu_eval', type=bool, default=False)
     parser.add_argument('--poem_type', type=str, default='poem7')
@@ -119,13 +121,15 @@ def main():
     test_data = Data.DataLoader(
         dataset=test_Dataset,  # torch TensorDataset format
         batch_size=1,  
-        shuffle=False,  
+        shuffle=False,
+        collate_fn=PoetryData.collate_fn # Jun16
         # num_workers=2,  # 多线程来读数据，提取xy的时候几个数据一起提取
     )
 
     # ========= Preparing Model =========#
     if os.path.exists(ckpt_path):
         checkpoint = torch.load(ckpt_path, map_location=lambda storage, loc: storage)
+        # model_param = checkpoint['settings']     # Jun16
         model_param = checkpoint['model_param']
         model_path = 'models.' + model_name + '.' + model_name
         Model = importlib.import_module(model_path)  # 导入模块

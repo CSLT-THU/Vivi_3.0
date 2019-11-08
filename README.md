@@ -147,6 +147,16 @@ _modern_model_path = os.path.join(save_dir, 'sgns.baidubaike.bigram-char')
 - `save/ancient_model_5.bin` Ancient word vector, which is the __essence of the planner__.   
 All these intermediate files inclueded in this repository are created with the corpus `poem_1031k`. If you want to train on your own corpus, delete these imtermediate files first.
 
+## Evaluation
+### Automatic evaluation
+- `yun_rate`
+- `lv_rate`
+- `lm`
+1. Combine the results of different models by running `combine_result.py` and get their `yun_rate`, `lv_rate`, and `lm`.
+2. Plot by `plot_2d.py`, `plot_3d.py`, `plot_loss.py`.
+### Human evaluation
+Gnerate questionnaires by `scoring/scoring.py`. Analyse the questionnaire results by `scoring/scoring_result.py`.
+
 ## Tips
 ### For CSLT users
 You can run this project directly on the server without any preparation at this dir: `/work4/liuyibo/pycharm/Poetry Generation/poem_vivi_3.6/`

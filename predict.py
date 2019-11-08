@@ -5,22 +5,27 @@ import time
 import os
 import json
 import argparse
+import random
 
 import importlib
 import configparser
 import torch.utils.data as Data
-from data_utils import read_test_data, get_keywords, read_eval_data, read_eval_data_2 ###
+import data_utils
+import constrains
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 print('device:', device)
 
+# seed = 1
+# torch.manual_seed(seed)
+# torch.cuda.manual_seed_all(seed)
+# np.random.seed(seed)
+# random.seed(seed)
+# torch.backends.cudnn.deterministic = True
+
 # word dict
 with open('resource/word_dict.json', 'r', encoding='utf-8') as f1:
     word_dict = json.load(f1)
-    
-######################################################################
-# predict
-# ==========
 
 def predict(test_data, lines, targets, model, predict_param, ckpt_path, poem_type, cangtou):
     model.eval()
@@ -36,59 +41,78 @@ def predict(test_data, lines, targets, model, predict_param, ckpt_path, poem_typ
         output_words.insert(23, '/')
         
         output_sentence = ''.join(output_words)
-        context_poem = str(i+1) + '\n' + lines[i] + ' ==== ' + output_sentence + '\n'
-        ###
-        word1 = output_words[14]
-        word2 = output_words[30]
-        yun1 = word_dict[word1]['yun']
-        yun2 = word_dict[word2]['yun']
-        
+        context_poem = lines[i] + ' ==== ' + output_sentence + '\n'
+        # context_poem = str(i + 1) + '\n' + lines[i] + ' ==== ' + output_sentence + '\n' # Jul3
+
         context = context + context_poem
-        print(context_poem, yun1, yun2)
+        if i < 3:
+            print(context_poem)
         if targets:
             target = lines[i] + ' ==== ' + targets[i] + '\n'
-            context = context + target
-            print(target)
-        
+            # context = context + target # Jul3
+            if i < 3:
+                print(target)
+    
     # logs 
-    file = 'result/result_' + ckpt_path.split('/')[1].split('.pkl')[0] + '.txt'
-    with open(file, 'a', encoding='utf-8') as f:
-        t = time.strftime("%m-%d", time.localtime())
-        f.write(t)
-        f.write('\n'+context+'\n')
+    if len(ckpt_path.split('/'))==2:
+        file = 'result/' + ckpt_path.split('/')[1].split('.pkl')[0] + '_' + str(time.strftime("%H%M%S", time.localtime())) + '.txt'
+    else:
+        file = 'result/' + ckpt_path.split('/')[2].split('.pkl')[0] + '_' + str(time.strftime("%H%M%S", time.localtime())) + '.txt'
+    with open(file, 'w', encoding='utf-8') as f:
+        f.write(context)
+    print('result saved at:', file)
+    
+    return file
+    
 
-
-def main():
+def pred(predict_param):
     # ========= Loading Params =========#
     # predict param
     parser = argparse.ArgumentParser(description='Vivi')
 
-    parser.add_argument('--model_name', type=str, default='Transformer')
-    parser.add_argument('--ckpt_path', type=str, default='ckpt/06-16_Transformer_epoch=1_loss=340.1.pkl')
-    # parser.add_argument('--model_name', type=str, default='Seq2seq_7')
-    # parser.add_argument('--ckpt_path', type=str, default='ckpt/06-10_Seq2seq_7_epoch=2_loss=157.7.pkl')
+    parser.add_argument('--model_name', type=str, default='Seq2seq_12')
+    # parser.add_argument('--ckpt_path', type=str, default='ckpt/0802164334_Seq2seq_12_ep=3_loss=150.38.pkl')
+    # parser.add_argument('--ckpt_path', type=str, default='ckpt/0802164334_Seq2seq_12_ep=4_loss=149.02.pkl')
+    parser.add_argument('--ckpt_path', type=str, default='ckpt/0802164555_Seq2seq_12_ep=3_loss=154.49.pkl')
+    # parser.add_argument('--ckpt_path', type=str, default='ckpt/0802164555_Seq2seq_12_ep=4_loss=152.79.pkl')
+    # parser.add_argument('--ckpt_path', type=str, default='ckpt/0802164555_Seq2seq_12_ep=5_loss=151.01.pkl')
+    # parser.add_argument('--ckpt_path', type=str, default='ckpt/0802164555_Seq2seq_12/0802164555_Seq2seq_12_ep=6_loss=150.18.pkl')
     parser.add_argument('--cangtou', type=str, default='')
     parser.add_argument('--keywords', type=str, default='')
-    parser.add_argument('--test_set', type=str, default='resource/dataset/testset.txt')
-    parser.add_argument('--eval_set', type=str, default='')
+    parser.add_argument('--test_set', type=str, default='')
+    parser.add_argument('--eval_set', type=str, default='resource/dataset/poem_1031k_theme_test_1k.txt')
     parser.add_argument('--use_planning', type=bool, default=False)
     parser.add_argument('--bleu_eval', type=bool, default=False)
     parser.add_argument('--poem_type', type=str, default='poem7')
+    parser.add_argument('--train_mode', type=str, default='kw2poem') # nL21L or kw2poem
+    parser.add_argument('--note', type=str, default='')
 
+    parser.add_argument('--as_train', type=bool, default=False) # Jul23
+    parser.add_argument('--pred_soft', type=bool, default=True) 
+    parser.add_argument('--template', type=bool, default=False)  # 2 template T, 4 soft F  
+    parser.add_argument('--hard_rhyme', type=bool, default=True)
+    parser.add_argument('--hard_tone', type=bool, default=True)
+    parser.add_argument('--w1', type=float, default=4.)
+    parser.add_argument('--w2', type=float, default=0.)
+   
     args = parser.parse_args()
-
-    model_name = args.model_name
-    ckpt_path = args.ckpt_path
-    cangtou = args.cangtou
-    keywords = args.keywords
-    test_set = args.test_set
-    eval_set = args.eval_set
-    use_planning = args.use_planning
-    bleu_eval = args.bleu_eval
-    poem_type = args.poem_type
     
-    predict_param = vars(args)
-    print('predict param: ', predict_param)
+    if predict_param == {}:
+        print('pred param from args')
+        predict_param = vars(args)
+    else:
+        print('pred param from py script')
+
+    model_name = predict_param['model_name']
+    ckpt_path = predict_param['ckpt_path']
+    cangtou = predict_param['cangtou']
+    keywords = predict_param['keywords']
+    test_set = predict_param['test_set']
+    eval_set = predict_param['eval_set']
+    use_planning = predict_param['use_planning']
+    poem_type = predict_param['poem_type']
+    train_mode = predict_param['train_mode']
+    as_train = predict_param['as_train']
     
     # model param
     conf = configparser.ConfigParser()
@@ -103,13 +127,15 @@ def main():
     # read data
     targets = None
     if cangtou:
-        test_set, lines = get_keywords(cangtou, use_planning)
+        test_set, lines = data_utils.get_keywords(cangtou, use_planning)
     elif keywords:
-        test_set, lines = get_keywords(keywords, use_planning)
+        test_set, lines = data_utils.get_keywords(keywords, use_planning)
     elif test_set:    
-        test_set, lines = read_test_data(test_set, use_planning)
+        test_set, lines = data_utils.read_test_data(test_set, use_planning)
+    elif train_mode == 'nL21L':
+        test_set, lines, targets = data_utils.read_nL21L_eval_data(eval_set)
     else: # eval
-        test_set, lines, targets = read_eval_data(eval_set, use_planning) # read_eval_data May24
+        test_set, lines, targets = data_utils.read_eval_data(eval_set, use_planning) # read_eval_data May24
         
     # 实例化
     data_path = 'models.' + model_name + '.PoetryData'
@@ -140,13 +166,27 @@ def main():
         
         if 'train_param' in checkpoint.keys():
             print('train param:', checkpoint['train_param'])
+            # Jul23
+            if as_train:
+                train_param = checkpoint['train_param']
+                predict_param['ckpt_path'] = ckpt_path
+                predict_param['pred_soft'] = train_param['train_soft']
+                predict_param['template'] = train_param['template']
+                predict_param['w1'] = train_param['w1']
+                predict_param['w2'] = train_param['w2']
+            print('predict param: ', predict_param)
         else:
             print('train param not recorded.')
-        
-        predict(test_data, lines, targets, model, predict_param, ckpt_path, poem_type, cangtou)
+
+        save_file = predict(test_data, lines, targets, model, predict_param, ckpt_path, poem_type, cangtou)
     else: 
         print('ckpt_path does not exist.')
+        save_file = None
+        
+    return save_file
 
+def main():
+    save_file = pred({})
 
 if __name__ == '__main__':
     main()

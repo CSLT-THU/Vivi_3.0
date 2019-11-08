@@ -1,0 +1,1 @@
+在Seq2seq_5的基础上 改为nL21L （forward不需要改 只要改predict 以及数据读取）

@@ -1,0 +1,1 @@
+BERT句子级编码代替word embedding和encoding （预训练模型）

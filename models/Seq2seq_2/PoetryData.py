@@ -2,18 +2,12 @@
 from __future__ import unicode_literals, print_function, division
 import torch
 from torch.utils.data.dataset import Dataset
-from torch.utils.data.dataloader import default_collate
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
 SRC_MAX_LENGTH = 32
 TGT_MAX_LENGTH = 41
 
-def paired_collate_fn(insts):
-    return default_collate(insts)
-
-def collate_fn(insts):
-    return default_collate(insts)
 
 class PoetryData(Dataset):
     def __init__(self, data, src_max_len=SRC_MAX_LENGTH, tgt_max_len=TGT_MAX_LENGTH, test=False):

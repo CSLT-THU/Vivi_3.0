@@ -1,0 +1,1 @@
+在Seq2seq_5的基础上 加入韵律loss 再加上self attention 比较有无self attention对规则的效果

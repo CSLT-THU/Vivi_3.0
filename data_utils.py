@@ -43,9 +43,9 @@ def read_train_data(file):
             pairs_li.append([source_ids, target_ids])
 
     print('training set size:', len(pairs_li))
-    print('read traning set done')
     return pairs_li  # tmp
 
+'''
 def read_train_data_2(file):
     print('read training set')
     # pairs_tensor = []
@@ -82,12 +82,52 @@ def read_train_data_2(file):
 
     print('training set size:', len(pairs_li))
     return pairs_li  # tmp
+'''
 
+def read_BERT_train_data(dataset):
+    dataset_path = 'resource/dataset/'+dataset+'.txt'
+    encodes_path = 'BERT_as_service/encodes/enc_li_'+dataset+'.json'
+    target_ids_li = []
+    pairs = []
+    for line in open(dataset_path, 'r', encoding='utf-8').readlines():
+        source, target = line.split('==')
+        target = target.replace('\n', '')
+        target_words = target.replace('\t', ' / ').split(' ') + ['/'] + target.split('\t')[0].split(' ')  # 用5个句子训练
+        target_ids = [word2id.get(word, vocab_size - 1) for word in target_words]
+        target_ids.append(EOS_token)  # 没有SOS_token
+        target_ids_li.append(target_ids)
+    with open(encodes_path, 'r', encoding='utf-8') as f:
+        source_enc_li = json.load(f)
+    for i in range(len(target_ids_li)):
+        pairs.append([source_enc_li[i], target_ids_li[i]])
+    print('training set size:', len(pairs))
+    return pairs
+
+
+def read_nL21L_train_data(file):
+    pairs = []
+    for line in open(file, 'r', encoding='utf-8').readlines():
+        source, target = line.split('==')
+        target = target.replace('\n', '')
+        sentences = target.split('\t')
+        idss = []
+        for sentence in sentences:
+            words  = sentence.split(' ')
+            ids = [word2id.get(word, vocab_size - 1) for word in words]
+            ids.append(2) # 包括target行 每行都加了/
+            idss.append(ids)
+        p1 = [idss[0], idss[1]]
+        p2 = [idss[0]+idss[1], idss[2]]
+        p3 = [idss[0]+idss[1]+idss[2], idss[3]]
+        pairs.append(p1)
+        pairs.append(p2)
+        pairs.append(p3)
+    return pairs
+            
 
 def line2ids(line): # for testset
     input_words = line.split(' ')
     input_ids = [word2id.get(word, vocab_size - 1) for word in input_words]  # default = 4776 '-' ?
-    # input_ids.insert(0, SOS_token) # Jun16
     input_ids.append(EOS_token)
     return input_ids
 
@@ -114,6 +154,15 @@ def get_line(line, lines, use_planning):
         lines.append(line_tmp.replace(' ', '') + ' == ' + line.replace(' ', ''))
     return line, lines
 
+def get_keywords(keywords, use_planning):
+    input_li = []
+    lines = []
+    line = keywords
+    line, lines = get_line(line, lines, use_planning)
+    input_ids = line2ids(line)
+    input_li.append(input_ids)
+    return input_li, lines
+
 
 def read_test_data(file, use_planning):
     print('read test set')
@@ -126,6 +175,7 @@ def read_test_data(file, use_planning):
         input_li.append(input_ids)
     print('read test set done')
     return input_li, lines
+
 
 def read_eval_data(file, use_planning):
     print('read eval set')
@@ -145,6 +195,28 @@ def read_eval_data(file, use_planning):
     print('read test set done')
     return input_li, lines, targets
 
+def read_nL21L_eval_data(file):
+    print('read eval set (nL21L)')
+    input_li = []
+    lines = []
+    targets = []
+    for line in open(file, 'r', encoding='utf-8').readlines():
+        line = line.replace('\n', '')
+        line, target = line.split('==')
+        lines.append('kw')
+        target = target.replace('\n', '')
+        
+        l1, l2, l3, l4 = target.split('\t')
+        words = l1.split(' ')
+        ids = [word2id.get(word, vocab_size - 1) for word in words]
+        input_li.append(ids)
+        
+        target = target.replace(' ', '').replace('\t', '/')
+        targets.append(target)
+        
+    print('read test set done')
+    return input_li, lines, targets
+    
 
 def read_eval_data_2(file, use_planning):
     print('read eval set')
@@ -174,16 +246,6 @@ def read_eval_data_2(file, use_planning):
     return (input_li_1, input_li_2), lines, targets
 
 
-def get_keywords(keywords, use_planning):
-    input_li = []
-    lines = []
-    line = keywords
-    line, lines = get_line(line, lines, use_planning)
-    input_ids = line2ids(line)
-    input_li.append(input_ids)
-    return input_li, lines
-
-
 def split_dataset(pairs, val_rate):
     train_set = pairs
     val_set = None
@@ -198,3 +260,11 @@ def sort_batch_data(batch_x, x_len, batch_y, y_len):  # 按x的长度排序
     sorted_y = batch_y[sorted_id]
     sorted_y_len = y_len[sorted_id]
     return sorted_x, sorted_x_len, sorted_y, sorted_y_len
+
+def sort_batch_data2(x, li):  # 按x的长度排序
+    sorted_x, sorted_id = x.sort(dim=0, descending=True)
+    sorted_li = []
+    for inst in li:
+        sorted_inst = inst[sorted_id]
+        sorted_li.append(sorted_inst)
+    return sorted_x, sorted_li

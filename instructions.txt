@@ -1,0 +1,41 @@
+Let's make clear the goal of this research. 
+
+The present NN-based poem generation is mostly based on semantic embedding. The most advantage of 
+this approach is that it can generate fluent sentences as only the most frequent event will be 
+well represented by the model. A key problem, however, is that the generation is from 
+left-to-right, so a perturbation in the generation process may lead to fail of the entire generation. 
+This perturbation is not scarce when the music rule (rhythm) is applied.  
+
+We therefore hope to do something like 'polishing'. There are several ways to do so:
+
+1. Someone has proposed a re-iterative NN generation. I think this is fine, but it can not really solve 
+the essential problem, as each generation is still one-directional, and the rule is always applied,
+leading to odd generation. This approach, so, can not provide guarantee of a good generation. 
+
+2. We can also design a 'style variable' and 'rhythm variable' for the model, to let the model knows 
+which style and rhythm  we are generating. This will let the generation mostly rule-complied, 
+leading to less possibility of rule-forced breakdown. However, we need more data for 
+each style. In particular, some rhythm has little training data. Jiyuan did something towards this 
+direction, but I'm not sure if  he did correctly.
+
+3. We can use BERT model to find incorrect words. More interestingly, 
+BERT is trained with 'corrupted neighbors', leading to good polishing even if the 
+first generation is noisy. However, no rules is integrated into a full probabilistic framework, and the 
+polishing is not globally optimal.
+
+4. We can use the maximum entropy (ME) model to do the above character-by-character polishing. This 
+model can put the rules as features, so can take into account both semantic and rules into a full 
+probabilistic framework. A BERT + ME is also fine. A key advantage is that we can re-sample many 
+rule-complied poems; if the sampling is infinite, it will generate the entire poem space. 
+
+5. Another way is the AE/VAE polishing. Treat the poem as a picture, and using the de-nosing model 
+as in image processing to find the polished version. Noisy training is fine. This is like a global 
+BERT. 
+Again, rules are not easy to be added, it is fully data driven. 
+
+6. So we want a framework (1) can take into account both semantics and music rules; (2) take do 
+global inference. A proposal is that we can use  NN (or other LM model, but NN is more easier to 
+involve style info) for semantic embedding, while rules (related to music) as knowledge (features 
+designed). Finally, these features are used in a chain CRF framework. Note we probably do not 
+need a 2D CRF.  The only concern is that if 3k words can be learned and inerred efficiently by 
+CRF.

@@ -11,7 +11,7 @@ class WordEmb():
     word2count: 4764 来自数据集统计
     '''
     def __init__(self):
-        with open('resource/word_emb.json', 'r', encoding='utf-8') as f1:
+        with open('resource/word_emb.json', 'r', encoding='utf-8') as f1: # word_emb.json
             dict = json.load(f1)
             self.emb_size = dict['emb_size']
             self.word2id = dict['word2id']

@@ -1,6 +1,6 @@
 # Vivi_3.0
 ## Intro
-This is the implementation for [http://cslt.riit.tsinghua.edu.cn/mediawiki/images/f/f4/Technical_report_-_poetry_generation.pdf]("A Rhythm Model for Chinese Poetry Generation").
+This is the implementation for ["A Rhythm Model for Chinese Poetry Generation"](http://cslt.riit.tsinghua.edu.cn/mediawiki/images/f/f4/Technical_report_-_poetry_generation.pdf).
 
 ## Quick Start
 

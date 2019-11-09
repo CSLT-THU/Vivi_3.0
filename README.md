@@ -1,6 +1,7 @@
 # Vivi_3.0
 ## Intro
 This is the implementation for ["A Rhythm Model for Chinese Poetry Generation"](http://cslt.riit.tsinghua.edu.cn/mediawiki/images/f/f4/Technical_report_-_poetry_generation.pdf).
+
 Some examples: (keywords ==== poem)
 - 枯藤-僧寺-霜-雨后 ==== 藤根枯树老参开/寺里僧钟午夜来/露滴悬崖挂竹杖/苔阶盘柏古梧栽
 - 冷-江风-烟雨-香 ==== 江水流沙草自长/风烟吹散落花黄/雨声夜里听云起/不觉清寒入梦乡
